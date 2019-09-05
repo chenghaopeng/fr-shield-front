@@ -3,11 +3,12 @@ import styles from "../index.module.less";
 import { Link } from "react-router-dom";
 
 export default class Login extends Component {
-  handleSubmit(e) {
+  handleSubmit = e => {
     e.preventDefault();
     /*
       Login
     */
+    this.props.history.push("/");
   }
   render() {
     return (

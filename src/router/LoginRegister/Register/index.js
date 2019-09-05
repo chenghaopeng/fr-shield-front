@@ -3,7 +3,7 @@ import styles from "../index.module.less";
 import { Link } from "react-router-dom";
 
 export default class Register extends Component {
-  handleSubmit(e) {
+  handleSubmit = e => {
     e.preventDefault();
     /*
       Register
