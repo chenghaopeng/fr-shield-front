@@ -20,11 +20,11 @@ export default class Register extends Component {
             <input name="username" type="text" placeholder="用户名" autoComplete="off"/>
             <input name="password" type="password" placeholder="密码" autoComplete="off"/>
             <input name="repeat" type="password" placeholder="重复密码" autoComplete="off"/>
-            <input name="submit" type="submit" value="注 册"/>
+            <button name="submit">注 册</button>
           </form>
-          <Link to="/login" className={styles.title}>
-            已有帐号？点此登录
-          </Link>
+          <div className={styles.title}>
+            已有帐号？<Link to="/login">点此登录</Link>
+          </div>
         </div>
       </div>
     );

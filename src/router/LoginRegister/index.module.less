@@ -17,6 +17,7 @@
     background-color: rgba(0, 0, 0, .3);
     padding: 3em;
     z-index: 1;
+    box-shadow: 0 0 20px -5px rgb(0, 0, 0);
 
     .title {
       font-size: 1em;
@@ -25,7 +26,7 @@
 
       a, a:active, a:hover, a:visited, a:link {
         color: white;
-        text-decoration: none;
+        text-decoration-color: white;
       }
     }
 
@@ -33,7 +34,7 @@
       display: flex;
       flex-direction: column;
 
-      input {
+      input, button {
         background-color: rgba(255, 255, 255, .3);
         margin: @loginregister-distance 0;
         font-size: 1em;
@@ -43,12 +44,14 @@
         transition: .5s;
       }
       
-      input:hover {
+      input:hover, button:hover {
         background-color: rgba(255, 255, 255, .4);
+        box-shadow: 0 0 20px -7px rgb(0, 0, 0);
       }
       
-      input:focus, .form input:active {
+      input:focus, input:active, button:focus, button:active {
         background-color: rgba(255, 255, 255, .5);
+        box-shadow: 0 0 20px -7px rgb(0, 0, 0);
       }
     }
   }

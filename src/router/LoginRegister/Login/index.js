@@ -20,11 +20,11 @@ export default class Login extends Component {
           <form className={styles.form} onSubmit={this.handleSubmit}>
             <input name="username" type="text" placeholder="用户名" autoComplete="off"/>
             <input name="password" type="password" placeholder="密码" autoComplete="off"/>
-            <input name="submit" type="submit" value="登 录"/>
+            <button name="submit">登 录</button>
           </form>
-          <Link to="/register" className={styles.title}>
-            还没有帐号？点此注册
-          </Link>
+          <div className={styles.title}>
+            还没有帐号？<Link to="/register">点此注册</Link>
+          </div>
         </div>
       </div>
     );
