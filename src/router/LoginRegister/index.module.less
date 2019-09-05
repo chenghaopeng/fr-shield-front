@@ -28,6 +28,29 @@
         text-decoration: none;
       }
     }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        background-color: rgba(255, 255, 255, .3);
+        margin: @loginregister-distance 0;
+        font-size: 1em;
+        border: none;
+        border-radius: @loginregister-distance;
+        padding: @loginregister-distance;
+        transition: .5s;
+      }
+      
+      input:hover {
+        background-color: rgba(255, 255, 255, .4);
+      }
+      
+      input:focus, .form input:active {
+        background-color: rgba(255, 255, 255, .5);
+      }
+    }
   }
 }
 
@@ -40,27 +63,4 @@
   position: absolute;
   background: url(../../themes/backgroundimage.jpg) center center / cover no-repeat;
   filter: blur(20px);
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-}
-
-.form input {
-  background-color: rgba(255, 255, 255, .3);
-  margin: @loginregister-distance 0;
-  font-size: 1em;
-  border: none;
-  border-radius: @loginregister-distance;
-  padding: @loginregister-distance;
-  transition: .5s;
-}
-
-.form input:hover {
-  background-color: rgba(255, 255, 255, .4);
-}
-
-.form input:focus, .form input:active {
-  background-color: rgba(255, 255, 255, .5);
 }
