@@ -1,0 +1,53 @@
+@import "../../themes/default.less";
+
+.whole {
+  display: flex;
+  width: 100%;
+  margin-right: 2vh;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+
+  .item {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    background-color: rgb(193, 183, 169);
+    padding: 2vh;
+    margin-bottom: 1vh;
+    font-size: 3vh;
+    box-sizing: border-box;
+    border-radius: 2vh;
+
+    .left {
+      color: rgb(89, 77, 73);
+    }
+
+    .right {
+      cursor: pointer;
+      text-decoration: underline;
+      text-decoration-color: green;
+      color: green;
+    }
+  }
+
+  .risk1 {
+    background-color: rgba(255, 0, 0, .1);
+  }
+
+  .risk2 {
+    background-color: rgba(255, 0, 0, .2);
+  }
+
+  .risk3 {
+    background-color: rgba(255, 0, 0, .3);
+  }
+
+  .risk4 {
+    background-color: rgba(255, 0, 0, .4);
+  }
+
+  .risk5 {
+    background-color: rgba(255, 0, 0, .5);
+  }
+}
