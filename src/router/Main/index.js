@@ -20,6 +20,18 @@ class Main extends Component {
       this.props.history.push("/analysis/" + stock);
     }
   }
+  
+  toInformation = () => {
+    this.props.history.push("/information");
+  }
+  
+  toBbs = () => {
+    this.props.history.push("/bbs");
+  }
+  
+  toPersonal = () => {
+    this.props.history.push("/personal");
+  }
 
   render() {
     return (
@@ -31,10 +43,10 @@ class Main extends Component {
         {/* <div className={styles.iconBox}>
         </div> */}
         <div className={styles.toolBox}>
-          <button className={styles.cmdButton}>信息展示</button>
-          <button className={styles.cmdButton}>论坛</button>
+          <button className={styles.cmdButton} onClick={this.toInformation}>信息展示</button>
+          <button className={styles.cmdButton} onClick={this.toBbs}>论坛</button>
           <button className={styles.cmdButton} onClick={this.toInput}>财务分析</button>
-          <button className={styles.cmdButton}>个人中心</button>
+          <button className={styles.cmdButton} onClick={this.toPersonal}>个人中心</button>
         </div>
       </div>
     );
