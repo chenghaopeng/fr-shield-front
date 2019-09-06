@@ -1,0 +1,29 @@
+@import "../../themes/default.less";
+
+.whole {
+  display: flex;
+  width: 50%;
+  height: 80%;
+
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  .fold {
+    display: flex;
+    width: 100%;
+    padding: 3vh;
+    box-sizing: border-box;
+    background-color: rgb(193, 183, 169);
+    color: rgb(89, 77, 73);
+    border-radius: 3vh;
+    font-size: 3vh;
+    cursor: pointer;
+    margin-top: 2vh;
+  }
+
+  .show {
+    background-color: rgb(159, 142, 121);
+    color: white;
+  }
+}
