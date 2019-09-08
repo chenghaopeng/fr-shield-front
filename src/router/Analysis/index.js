@@ -19,8 +19,8 @@ class Analysis extends Component {
   }
   getInfo = () => {
     const { nav } = this.state;
-    if (nav == 1) return <ImportantIndex/>;
-    if (nav == 2) return <RiskContrast/>;
+    if (nav === 1) return <ImportantIndex/>;
+    if (nav === 2) return <RiskContrast/>;
     return <TrustedItem/>;
   }
   render() {
@@ -40,13 +40,13 @@ class Analysis extends Component {
         </div>
         <div className={styles.infoContainer}>
           <div className={styles.navBar}>
-            <div className={`${styles.nav} ${nav == 1? styles.activeNav: ''}`} onClick={this.changeInfo.bind(this, 1)}>
+            <div className={`${styles.nav} ${nav === 1? styles.activeNav: ''}`} onClick={this.changeInfo.bind(this, 1)}>
               重要指标
             </div>
-            <div className={`${styles.nav} ${nav == 2? styles.activeNav: ''}`} onClick={this.changeInfo.bind(this, 2)}>
+            <div className={`${styles.nav} ${nav === 2? styles.activeNav: ''}`} onClick={this.changeInfo.bind(this, 2)}>
               行业风险对比
             </div>
-            <div className={`${styles.nav} ${nav == 3? styles.activeNav: ''}`} onClick={this.changeInfo.bind(this, 3)}>
+            <div className={`${styles.nav} ${nav === 3? styles.activeNav: ''}`} onClick={this.changeInfo.bind(this, 3)}>
               已信任项
             </div>
           </div>

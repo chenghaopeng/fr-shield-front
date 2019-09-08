@@ -6,7 +6,6 @@ import Register from "../LoginRegister/Register"
 import Main from "../Main"
 import Analysis from "../Analysis"
 import Information from "../Information"
-import Bbs from "../Bbs"
 import Personal from "../Personal"
 
 export default [
@@ -15,6 +14,5 @@ export default [
 	<Route component={ Main } exact path='/'/>,
 	<Route component={ Analysis } exact path="/analysis/:stock"/>,
 	<Route component={ Information } exact path="/information"/>,
-	<Route component={ Bbs } exact path="/Bbs"/>,
 	<Route component={ Personal } exact path="/Personal"/>,
 ];
