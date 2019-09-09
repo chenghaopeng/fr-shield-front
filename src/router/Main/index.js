@@ -5,19 +5,34 @@ import MdSearch from "react-ionicons/lib/MdSearch";
 import { withRouter } from "react-router-dom"
 
 import WithHeader from "../../component/WithHeader";
+import { analysis } from "../../services/apiHTTP";
 
 class Main extends Component {
+  componentWillMount() {
+    if (!window.localStorage.username) {
+      this.props.history.push("/login");
+    }
+  }
+
   toInput = () => {
     document.getElementById("stock").focus();
   }
 
   toAnalysis = () => {
-    var stock = document.getElementById("stock").value;
-    if (stock.trim() === "") {
+    var stock = document.getElementById("stock").value.trim();
+    if (stock === "") {
       alert("请输入股票代码或名称！");
     }
     else {
-      this.props.history.push("/analysis/" + stock);
+      analysis(stock).then(res => {
+        if (res.code === 0) {
+          window.localStorage.analysisData = res.data;
+          this.props.history.push("/analysis/" + stock);
+        }
+        else {
+          alert("股票代码或名称错误！");
+        }
+      });
     }
   }
   

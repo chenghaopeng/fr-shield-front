@@ -3,11 +3,31 @@ import styles from "./index.module.less";
 import { withRouter } from "react-router-dom";
 
 import WithHeader from "../../component/WithHeader";
+import { information } from "../../services/apiHTTP";
 
 class Information extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentWillMount() {
+    information().then(res => {
+      if (res.code === 0) {
+        this.setState(res.data);
+        //alert(JSON.stringify(this.state));
+      }
+      else {
+        this.setState({data: null});
+      }
+    });
+  }
+  
   render() {
     return (
-      <p>信息展示</p>
+      <div className={styles.whole}>
+        {JSON.stringify(this.state)}
+      </div>
     );
   }
 }

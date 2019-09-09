@@ -12,17 +12,30 @@ import TrustedItem from "../../component/TrustedItem";
 class Analysis extends Component {
   constructor(props) {
     super(props);
-    this.state = {nav: 1};
+    this.state = {nav: 1, data: []};
   }
+
+  componentWillMount() {
+    if (!window.localStorage.analysisData) {
+      this.props.history.push("/");
+    }
+  }
+
+  componentWillUnmount() {
+    window.localStorage.removeItem("analysisData");
+  }
+
   changeInfo = n => {
-    this.setState({nav: n});
+    this.setState({...this.state, nav: n});
   }
+
   getInfo = () => {
     const { nav } = this.state;
     if (nav === 1) return <ImportantIndex/>;
     if (nav === 2) return <RiskContrast/>;
     return <TrustedItem/>;
   }
+  
   render() {
     const { nav } = this.state;
     return (

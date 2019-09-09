@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "http-proxy-middleware": "^0.20.0",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "react": "^16.9.0",
@@ -37,12 +38,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "babel-cli": "^6.26.0"
-  },
-  "babel": {
-    "plugins": [
-      "@babel/plugin-proposal-class-properties"
-    ]
+    "@babel/plugin-proposal-class-properties": "^7.5.5"
   }
 }

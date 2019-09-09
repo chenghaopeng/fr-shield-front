@@ -9,6 +9,7 @@ export default function RiskContrast() {
     if (r > .2) return styles.risk2;
     return styles.risk1;
   }
+
   const ToItem = props => {
     return (
       <div className={`${styles.item} ${props.first? '': GetRisk(props.risk)}`}>
@@ -19,6 +20,7 @@ export default function RiskContrast() {
       </div>
     );
   }
+  
   return (
     <div className={styles.whole}>
       <ToItem title="问题名称" first={true}/>

@@ -5,18 +5,28 @@ import { withRouter } from "react-router-dom"
 import IosHome from "react-ionicons/lib/IosHome";
 import IosExit from "react-ionicons/lib/IosExit";
 
+import { logout } from "../../services/apiHTTP";
+
 class Header extends Component {
   componentWillMount() {
     if (!window.localStorage.username) {
-      //this.props.history.push("/login");
+      this.props.history.push("/login");
     }
   }
+
   toHome = () => {
     this.props.history.push("/");
   }
+
   toLogin = () => {
-    this.props.history.push("/login");
+    logout().then(res => {
+      if (res.code === 0) {
+        window.localStorage.removeItem("username");
+        this.props.history.push("/login");
+      }
+    });
   }
+  
   render() {
     return (
       <div className={styles.header}>
