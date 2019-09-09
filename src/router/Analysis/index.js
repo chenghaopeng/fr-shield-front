@@ -12,7 +12,7 @@ import TrustedItem from "../../component/TrustedItem";
 class Analysis extends Component {
   constructor(props) {
     super(props);
-    this.state = {nav: 1, data: []};
+    this.state = {nav: 1};
   }
 
   componentWillMount() {
@@ -26,7 +26,7 @@ class Analysis extends Component {
   }
 
   changeInfo = n => {
-    this.setState({...this.state, nav: n});
+    this.setState({nav: n});
   }
 
   getInfo = () => {

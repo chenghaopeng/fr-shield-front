@@ -16,7 +16,6 @@ export default class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    //alert(JSON.stringify(this.state));
     const values = this.state;
     if (values.username.length === 0 || values.password.length === 0) {
       alert("请输入用户名和密码！");

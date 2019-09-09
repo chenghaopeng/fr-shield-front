@@ -18,7 +18,7 @@ class Information extends Component {
         //alert(JSON.stringify(this.state));
       }
       else {
-        this.setState({data: null});
+        this.setState({data: {}});
       }
     });
   }
