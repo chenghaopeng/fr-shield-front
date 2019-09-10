@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from "./index.module.less";
 import { withRouter } from "react-router-dom";
+import { message } from "antd";
 
 import WithHeader from "../../component/WithHeader";
 import { footprint } from "../../services/apiHTTP";
@@ -64,10 +65,10 @@ class Personal extends Component {
     e.preventDefault();
     const values = this.state.pw;
     if (values.oldPassword.length === 0 || values.password.length === 0 || values.repeat.length === 0) {
-      alert("请输入旧密码、密码以及重复密码！");
+      message.error("请输入旧密码、密码以及重复密码！");
     }
     else if (values.password !== values.repeat) {
-      alert("两次输入的新密码不一致！");
+      message.error("两次输入的新密码不一致！");
     }
     else {
       password({
@@ -75,10 +76,10 @@ class Personal extends Component {
         newpassword: values.password
       }).then(res => {
         if (res.code === 0) {
-          alert("密码修改成功！");
+          message.success("密码修改成功！");
         }
         else {
-          alert("密码错误，修改失败！");
+          message.error("密码错误，修改失败！");
         }
         this.setState({...this.state, pw: {show: 0, oldPassword: "", password: "", repeat: ""}});
       });

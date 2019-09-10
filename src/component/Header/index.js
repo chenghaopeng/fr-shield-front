@@ -9,7 +9,7 @@ import { logout } from "../../services/apiHTTP";
 
 class Header extends Component {
   componentWillMount() {
-    if (!window.localStorage.username) {
+    if (!window.sessionStorage.username) {
       this.props.history.push("/login");
     }
   }
@@ -21,7 +21,7 @@ class Header extends Component {
   toLogin = () => {
     logout().then(res => {
       if (res.code === 0) {
-        window.localStorage.removeItem("username");
+        window.sessionStorage.removeItem("username");
         this.props.history.push("/login");
       }
     });
@@ -30,9 +30,9 @@ class Header extends Component {
   render() {
     return (
       <div className={styles.header}>
-        <IosHome className={styles.home} fontSize="3em" color="rgb(90, 86, 80)" onClick={this.toHome}/>
+        <IosHome className={styles.home} fontSize="10vh" color="rgb(90, 86, 80)" onClick={this.toHome}/>
         <div className={styles.title}>FR Shield {this.props.title}</div>
-        <IosExit className={styles.logout} fontSize="3em" color="rgb(90, 86, 80)" onClick={this.toLogin}/>
+        <IosExit className={styles.logout} fontSize="10vh" color="rgb(90, 86, 80)" onClick={this.toLogin}/>
       </div>
     );
   }

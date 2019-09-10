@@ -31,3 +31,7 @@
     transform: rotate(360deg);
   }
 }
+
+.ant-message * {
+  font-size: 2.5vh;
+}

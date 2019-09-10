@@ -4,12 +4,14 @@ import styles from "./index.module.less";
 import MdSearch from "react-ionicons/lib/MdSearch";
 import { withRouter } from "react-router-dom"
 
+import { message, Popover } from "antd";
+
 import WithHeader from "../../component/WithHeader";
 import { analysis } from "../../services/apiHTTP";
 
 class Main extends Component {
   componentWillMount() {
-    if (!window.localStorage.username) {
+    if (!window.sessionStorage.username) {
       this.props.history.push("/login");
     }
   }
@@ -21,16 +23,16 @@ class Main extends Component {
   toAnalysis = () => {
     var stock = document.getElementById("stock").value.trim();
     if (stock === "") {
-      alert("请输入股票代码或名称！");
+      message.error("请输入股票代码或名称！");
     }
     else {
       analysis(stock).then(res => {
         if (res.code === 0) {
-          window.localStorage.analysisData = res.data;
+          window.sessionStorage.analysisData = res.data;
           this.props.history.push("/analysis/" + stock);
         }
         else {
-          alert("股票代码或名称错误！");
+          message.error("股票代码或名称错误！");
         }
       });
     }
@@ -45,10 +47,13 @@ class Main extends Component {
   }
 
   render() {
+    const content = (<p style={{fontSize: "3vh"}}>请输入股票代码或名称</p>);
     return (
       <div className={styles.whole}>
         <div className={styles.searchBox}>
-          <input id="stock" name="stock" type="text" className={styles.stock} placeholder="股票代码或名称" autoComplete="off"/>
+          <Popover content={content} trigger="focus">
+            <input id="stock" name="stock" type="text" className={styles.stock} autoComplete="off"/>
+          </Popover>
           <button className={styles.search} onClick={this.toAnalysis}><MdSearch fontSize="6vh" color="rgb(89, 77, 73)"/></button>
         </div>
         {/* <div className={styles.iconBox}>

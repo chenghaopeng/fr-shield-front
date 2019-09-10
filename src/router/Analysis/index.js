@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styles from "./index.module.less";
 
 import { withRouter } from "react-router-dom";
-import { Circle } from "react-circle";
+import { Progress } from "antd";
 
 import WithHeader from "../../component/WithHeader";
 import ImportantIndex from "../../component/ImportantIndex";
@@ -16,13 +16,13 @@ class Analysis extends Component {
   }
 
   componentWillMount() {
-    if (!window.localStorage.analysisData) {
+    if (!window.sessionStorage.analysisData) {
       this.props.history.push("/");
     }
   }
 
   componentWillUnmount() {
-    window.localStorage.removeItem("analysisData");
+    window.sessionStorage.removeItem("analysisData");
   }
 
   changeInfo = n => {
@@ -41,13 +41,22 @@ class Analysis extends Component {
     return (
       <div className={styles.whole}>
         <div className={styles.gradeContainer}>
-          <Circle progress="90"
+          {/* <Circle progress="90"
             responsive={true}
             showPercentageSymbol={false}
             progressColor="rgb(159, 142, 121)"
             textColor="rgb(159, 142, 121)"
             roundedStroke={true}
             textStyle={{'font-size': '9vh'}}
+          /> */}
+          <Progress
+            className={styles.circle}
+            type="circle"
+            strokeColor="rgb(159, 142, 121)"
+            percent={68}
+            format={percent => {return percent;}}
+            strokeWidth="10"
+            width="20vh"
           />
           <div className={styles.stockTitle}>{this.props.match.params.stock}</div>
         </div>

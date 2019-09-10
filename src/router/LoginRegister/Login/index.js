@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from "../index.module.less";
 import { Link } from "react-router-dom";
+import { message } from "antd";
 
 import { login } from "../../../services/apiHTTP";
 
@@ -18,16 +19,16 @@ export default class Login extends Component {
     e.preventDefault();
     const values = this.state;
     if (values.username.length === 0 || values.password.length === 0) {
-      alert("请输入用户名和密码！");
+      message.error("请输入用户名和密码！");
     }
     else {
       login(values).then(res => {
         if (res.code === 0) {
-          window.localStorage.username = res.data.username;
+          window.sessionStorage.username = res.data.username;
           this.props.history.push("/");
         }
         else {
-          alert("用户名或密码错误！");
+          message.error("用户名或密码错误！");
         }
       });
     }

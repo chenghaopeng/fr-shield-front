@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from "../index.module.less";
 import { Link } from "react-router-dom";
+import { message } from "antd";
 
 import { register } from "../../../services/apiHTTP";
 
@@ -18,10 +19,10 @@ export default class Register extends Component {
     e.preventDefault();
     const values = this.state;
     if (values.username.length === 0 || values.password.length === 0 || values.repeat === 0) {
-      alert("请输入用户名、密码以及重复密码！");
+      message.error("请输入用户名、密码以及重复密码！");
     }
     else if (values.password !== values.repeat) {
-      alert("两次输入的密码不一致！");
+      message.error("两次输入的密码不一致！");
     }
     else {
       register({
@@ -29,11 +30,11 @@ export default class Register extends Component {
         password: values.password
       }).then(res => {
         if (res.code === 0) {
-          alert("注册成功！");
+          message.success("注册成功！");
           this.props.history.push("/login");
         }
         else {
-          alert("该用户名已被注册！");
+          message.error("该用户名已被注册！");
         }
       });
     }
