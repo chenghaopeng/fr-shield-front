@@ -55,8 +55,8 @@ class Analysis extends Component {
             strokeColor="rgb(159, 142, 121)"
             percent={68}
             format={percent => {return percent;}}
-            strokeWidth="10"
-            width="20vh"
+            strokeWidth={10}
+            width={"20vh"}
           />
           <div className={styles.stockTitle}>{this.props.match.params.stock}</div>
         </div>

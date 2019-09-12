@@ -22,10 +22,13 @@ export default class Login extends Component {
       message.error("请输入用户名和密码！");
     }
     else {
+      const hide = message.loading("正在登录...", 0);
       login(values).then(res => {
+        hide();
         if (res.code === 0) {
           window.sessionStorage.username = res.data.username;
           this.props.history.push("/");
+          message.success(res.data.username + "，欢迎回来！");
         }
         else {
           message.error("用户名或密码错误！");

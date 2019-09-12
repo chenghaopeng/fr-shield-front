@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from "./index.module.less";
 import { withRouter } from "react-router-dom";
+import { Skeleton } from "antd";
 
 import WithHeader from "../../component/WithHeader";
 import { information } from "../../services/apiHTTP";
@@ -8,17 +9,17 @@ import { information } from "../../services/apiHTTP";
 class Information extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {got: 0, data: {}};
   }
 
   componentWillMount() {
     information().then(res => {
       if (res.code === 0) {
-        this.setState(res.data);
+        this.setState({got: 1, data: res.data});
         //alert(JSON.stringify(this.state));
       }
       else {
-        this.setState({data: {}});
+        this.setState({got: 0, data: {}});
       }
     });
   }
@@ -26,7 +27,7 @@ class Information extends Component {
   render() {
     return (
       <div className={styles.whole}>
-        {JSON.stringify(this.state)}
+        {this.state.got === 1 ? JSON.stringify(this.state) : <div className={styles.skeleton}><Skeleton active /></div>}
       </div>
     );
   }

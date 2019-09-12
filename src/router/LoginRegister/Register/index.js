@@ -25,10 +25,12 @@ export default class Register extends Component {
       message.error("两次输入的密码不一致！");
     }
     else {
+      const hide = message.loading("正在注册...", 0);
       register({
         username: values.username,
         password: values.password
       }).then(res => {
+        hide();
         if (res.code === 0) {
           message.success("注册成功！");
           this.props.history.push("/login");

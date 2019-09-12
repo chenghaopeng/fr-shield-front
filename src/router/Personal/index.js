@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import styles from "./index.module.less";
 import { withRouter } from "react-router-dom";
-import { message } from "antd";
+import { message, Spin } from "antd";
 
 import WithHeader from "../../component/WithHeader";
 import { footprint } from "../../services/apiHTTP";
@@ -10,16 +10,16 @@ import { password } from "../../services/apiHTTP";
 class Personal extends Component {
   constructor(props) {
     super(props);
-    this.state = {fp: {show: 0, data: []}, pw: {show: 0, oldPassword: "", password: "", repeat: ""}};
+    this.state = {fp: {show: 0, got: 0, data: []}, pw: {show: 0, got: 0, oldPassword: "", password: "", repeat: ""}};
   }
 
   componentWillMount() {
     footprint().then(res => {
       if (res.code === 0) {
-        this.setState({...this.state, fp: {...this.state.fp, data: res.data.footprints}});
+        this.setState({...this.state, fp: {...this.state.fp, got: 1, data: res.data.footprints}});
       }
       else {
-        this.setState({...this.state, fp: {...this.state.fp, data: []}});
+        this.setState({...this.state, fp: {...this.state.fp, got: 0, data: []}});
       }
     });
   }
@@ -35,13 +35,16 @@ class Personal extends Component {
   getFootprint = () => {
     return (
       <div className={styles.fpcontainer}>
-        {this.state.fp.data.length === 0 ? <div className={styles.fp} style={{width: "80%"}}>暂时没有足迹</div> : this.state.fp.data.map(name => {
+        {this.state.fp.got === 1 ?
+        (this.state.fp.data.length === 0 ? <div className={styles.fp} style={{width: "80%"}}>暂时没有足迹</div> : this.state.fp.data.map(name => {
           return (
             <div className={styles.fp}>
               {name}
             </div>
           );
-        })}
+        }))
+        :
+        <Spin size="large"/>}
       </div>
     );
   }
@@ -71,10 +74,12 @@ class Personal extends Component {
       message.error("两次输入的新密码不一致！");
     }
     else {
+      const hide = message.loading("正在修改密码...", 0);
       password({
         oldpassword: values.oldPassword,
         newpassword: values.password
       }).then(res => {
+        hide();
         if (res.code === 0) {
           message.success("密码修改成功！");
         }
