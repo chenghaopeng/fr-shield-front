@@ -13,6 +13,7 @@ export default [
 	<Route component={ Register } exact path='/register'/>,
 	<Route component={ Main } exact path='/'/>,
 	<Route component={ Analysis } exact path="/analysis/:stock"/>,
+	<Route component={ Analysis } exact path="/analysis/:stock/:nav"/>,
 	<Route component={ Information } exact path="/information"/>,
 	<Route component={ Personal } exact path="/Personal"/>,
 ];

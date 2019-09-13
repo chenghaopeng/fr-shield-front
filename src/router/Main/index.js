@@ -7,7 +7,6 @@ import { withRouter } from "react-router-dom"
 import { message, Popover } from "antd";
 
 import WithHeader from "../../component/WithHeader";
-import { analysis } from "../../services/apiHTTP";
 
 class Main extends Component {
   componentWillMount() {
@@ -26,17 +25,7 @@ class Main extends Component {
       message.error("请输入股票代码或名称！");
     }
     else {
-      const hide = message.loading("正在查询，请稍候...", 0);
-      analysis(stock).then(res => {
-        hide();
-        if (res.code === 0) {
-          window.sessionStorage.analysisData = res.data;
-          this.props.history.push("/analysis/" + stock);
-        }
-        else {
-          message.error("股票代码或名称错误！");
-        }
-      });
+      this.props.history.push("/analysis/" + stock);
     }
   }
   

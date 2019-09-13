@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from "react";
+import React, { Component } from "react";
 import styles from "./index.module.less";
 import { withRouter } from "react-router-dom";
 import { message, Spin } from "antd";
