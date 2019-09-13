@@ -24,7 +24,7 @@ class Analysis extends Component {
       return;
     }
     if (this.props.match.params.nav) {
-      const n = parseInt(this.props.match.params.nav);
+      var n = parseInt(this.props.match.params.nav);
       if (n < 1) n = 1;
       if (n > 3) n = 3;
       this.setState({...this.state, nav: n});
