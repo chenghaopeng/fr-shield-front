@@ -79,7 +79,7 @@ class Analysis extends Component {
           <div className={styles.circle}>
             {data.got === 1 ? <this.Grade/> : data.got === 0 ? <Spin size="large"/> : <Empty/>}
           </div>
-          <div className={styles.stockTitle}>{data.got === 1 ? data.my.stockname + " " + data.my.stockcode : this.state.stock}</div>
+          <div className={styles.stockTitle}>{data.got === 1 ? data.my.stockname + " " + data.my.stockcode : data.got === 0 ?  this.state.stock : "股票代码或名称“" + this.state.stock + "”错误！"}</div>
         </div>
         <div className={styles.infoContainer}>
           <div className={styles.navBar}>

@@ -28,6 +28,7 @@ class Header extends Component {
   }
   
   render() {
+    document.title = "FR Shield" + (this.props.title ? " " + this.props.title : "");
     return (
       <div className={styles.header}>
         <IosHome className={styles.home} fontSize="10vh" color="rgb(90, 86, 80)" onClick={this.toHome}/>

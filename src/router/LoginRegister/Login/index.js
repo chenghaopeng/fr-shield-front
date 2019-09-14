@@ -9,6 +9,7 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {username: "", password: ""};
+    document.title = "FR Shield 登录";
   }
 
   handleInputChange = e => {

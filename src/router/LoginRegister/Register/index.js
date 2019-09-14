@@ -9,6 +9,7 @@ export default class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {username: "", password: "", repeat: ""};
+    document.title = "FR Shield 注册";
   }
 
   handleInputChange = e => {
