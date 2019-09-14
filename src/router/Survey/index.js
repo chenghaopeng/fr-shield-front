@@ -140,7 +140,7 @@ class Survey extends Component {
             </div>
           );
         })}
-        <Button onClick={this.submitSurvey} type="primary" style={{fontSize: "4vh", padding: "1vh", width: "100%", height: "20%", margin: "2vh"}}>提交</Button>
+        <Button onClick={this.submitSurvey} type="primary" style={{flex: "none", fontSize: "4vh", padding: "1vh", width: "100%", height: "20%", margin: "2vh"}}>提交</Button>
       </div>
     );
   }
