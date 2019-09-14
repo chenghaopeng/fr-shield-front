@@ -28,8 +28,16 @@ export default class Login extends Component {
         hide();
         if (res.code === 0) {
           window.sessionStorage.username = res.data.username;
-          this.props.history.push("/");
-          message.success(res.data.username + "，欢迎回来！");
+          window.sessionStorage.mark = parseInt(res.data.mark);
+          if (window.sessionStorage.mark < 0) {
+            this.props.history.push("/survey");
+            message.success(res.data.username + "，欢迎您来！");
+            message.info("现在我们需要您完成一项调查，以便您更好地使用本系统。");
+          }
+          else{
+            this.props.history.push("/");
+            message.success(res.data.username + "，欢迎回来！");
+          }
         }
         else {
           message.error("用户名或密码错误！");

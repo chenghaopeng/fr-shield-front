@@ -4,13 +4,13 @@ import { withRouter } from "react-router-dom";
 import { message, Spin } from "antd";
 
 import WithHeader from "../../component/WithHeader";
-import { footprint } from "../../services/apiHTTP";
+import { footprint, getMark } from "../../services/apiHTTP";
 import { password } from "../../services/apiHTTP";
 
 class Personal extends Component {
   constructor(props) {
     super(props);
-    this.state = {fp: {show: 0, got: 0, data: []}, pw: {show: 0, got: 0, oldPassword: "", password: "", repeat: ""}};
+    this.state = {fp: {show: 0, got: 0, data: []}, pw: {show: 0, got: 0, oldPassword: "", password: "", repeat: ""}, mark: window.sessionStorage.mark};
   }
 
   componentWillMount() {
@@ -22,6 +22,11 @@ class Personal extends Component {
         this.setState({...this.state, fp: {...this.state.fp, got: 0, data: []}});
       }
     });
+    getMark().then(res => {
+      if (res.code === 0) {
+        this.setState({...this.state, mark: res.data.mark});
+      }
+    });
   }
 
   showFootprint = () => {
@@ -30,6 +35,10 @@ class Personal extends Component {
 
   showPassword = () => {
     this.setState({...this.state, pw: {...this.state.pw, show: 1 - this.state.pw.show}});
+  }
+
+  showSurvey = () => {
+    this.props.history.push("/survey");
   }
 
   getFootprint = () => {
@@ -94,6 +103,9 @@ class Personal extends Component {
   render() {
     return (
       <div className={styles.whole}>
+        <div className={styles.fold} onClick={this.showSurvey}>
+          您的指数是 {this.state.mark} ，点击可以重新填写调查问卷
+        </div>
         <div className={`${styles.fold} ${this.state.pw.show === 1 ? styles.show : ''}`} onClick={this.showPassword}>
           修改密码
         </div>

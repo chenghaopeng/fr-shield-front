@@ -44,3 +44,16 @@ export const analysis = (stock) => {
     method: "GET"
   });
 }
+
+export const uploadMark = (payload) => {
+  return request("/user/mark", {
+    method: "POST",
+    body: payload
+  });
+}
+
+export const getMark = () => {
+  return request("/user/mark", {
+    method: "GET"
+  });
+}

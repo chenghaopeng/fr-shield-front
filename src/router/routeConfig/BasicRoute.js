@@ -7,6 +7,7 @@ import Main from "../Main"
 import Analysis from "../Analysis"
 import Information from "../Information"
 import Personal from "../Personal"
+import Survey from "../Survey"
 
 export default [
 	<Route component={ Login } exact path='/login'/>,
@@ -15,5 +16,6 @@ export default [
 	<Route component={ Analysis } exact path="/analysis/:stock"/>,
 	<Route component={ Analysis } exact path="/analysis/:stock/:nav"/>,
 	<Route component={ Information } exact path="/information"/>,
-	<Route component={ Personal } exact path="/Personal"/>,
+	<Route component={ Personal } exact path="/personal"/>,
+	<Route component={ Survey } exact path="/survey"/>,
 ];
