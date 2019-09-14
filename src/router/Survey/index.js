@@ -140,10 +140,10 @@ class Survey extends Component {
             </div>
           );
         })}
-        <Button onClick={this.submitSurvey} type="primary" style={{flex: "none", fontSize: "4vh", padding: "1vh", width: "100%", height: "20%", margin: "2vh"}}>提交</Button>
+        <Button onClick={this.submitSurvey} type="primary" style={{flex: "none", fontSize: "4vh", padding: "1vh", width: "100%", height: "12%", margin: "2vh"}}>提交</Button>
       </div>
     );
   }
 }
 
-export default WithHeader(withRouter(Survey), "问卷调查");
+export default WithHeader(withRouter(Survey), "调查问卷");

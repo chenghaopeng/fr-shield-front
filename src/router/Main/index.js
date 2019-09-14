@@ -50,7 +50,7 @@ class Main extends Component {
         {/* <div className={styles.iconBox}>
         </div> */}
         <div className={styles.toolBox}>
-          <button className={styles.cmdButton} onClick={this.toInformation}>信息展示</button>
+          {/* <button className={styles.cmdButton} onClick={this.toInformation}>信息展示</button> */}
           <button className={styles.cmdButton} onClick={this.toInput}>财务分析</button>
           <button className={styles.cmdButton} onClick={this.toPersonal}>个人中心</button>
         </div>
