@@ -24,7 +24,8 @@ class Personal extends Component {
     });
     getMark().then(res => {
       if (res.code === 0) {
-        this.setState({...this.state, mark: res.data.mark});
+        window.sessionStorage.mark = parseFloat(res.data.mark).toFixed(6)
+        this.setState({...this.state, mark: window.sessionStorage.mark});
       }
     });
   }

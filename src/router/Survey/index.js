@@ -65,6 +65,10 @@ class Survey extends Component {
     this.state = {ans: [0, 0, 0, 0, [], 0, 0, 0, 0, 0]};
   }
 
+  componentWillMount() {
+    message.info("现在我们需要您完成一份调查问卷，以便您更好地使用本系统。");
+  }
+
   onChange = (index, event) => {
     var t = this.state.ans;
     t[index] = event.target.value;

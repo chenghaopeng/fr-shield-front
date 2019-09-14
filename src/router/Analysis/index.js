@@ -18,6 +18,10 @@ class Analysis extends Component {
   }
 
   componentWillMount() {
+    if (window.sessionStorage.mark < 0) {
+      this.props.history.push("/survey");
+      return;
+    }
     this.state.stock = this.props.match.params.stock.trim();
     if (this.state.stock === "") {
       this.props.history.push("/");
