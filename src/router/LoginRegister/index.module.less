@@ -12,12 +12,16 @@
   background: url(../../themes/backgroundimage.jpg) center center / cover no-repeat;
 
   .wrapper {
-    width: 45vw;
+    width: 50vw;
     border-radius: 7vh;
     background-color: rgba(0, 0, 0, .3);
     padding: 9vh;
     z-index: 1;
     box-shadow: 0 0 20px -5px rgb(0, 0, 0);
+
+    @media all and (max-width: 1024px) {
+      width: 100%;
+    }
 
     .title {
       font-size: 3vh;
