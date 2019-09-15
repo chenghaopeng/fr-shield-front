@@ -42,10 +42,10 @@ export const information = () => {
   });
 }
 
-export const analysis = (stock) => {
-  return request(`/analysis/${stock}`, {
+export const analysis = (payload) => {
+  return request("/analysis", {
     method: "POST",
-    body: {username: window.sessionStorage.username}
+    body: {...payload, username: window.sessionStorage.username}
   });
 }
 

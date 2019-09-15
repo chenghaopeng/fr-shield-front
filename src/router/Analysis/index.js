@@ -34,7 +34,7 @@ class Analysis extends Component {
       this.setState({...this.state, nav: n});
     }
     const hide = message.loading("正在查询，请稍候...", 0);
-    analysis(this.state.stock).then(res => {
+    analysis({stock: this.state.stock}).then(res => {
       hide();
       if (res.code === 0) {
         var problem = [];

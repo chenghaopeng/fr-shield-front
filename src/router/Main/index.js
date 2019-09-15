@@ -32,6 +32,10 @@ class Main extends Component {
   toInformation = () => {
     this.props.history.push("/information");
   }
+
+  toForum = () => {
+    this.props.history.push("/forum");
+  }
   
   toPersonal = () => {
     this.props.history.push("/personal");
@@ -52,6 +56,7 @@ class Main extends Component {
         <div className={styles.toolBox}>
           {/* <button className={styles.cmdButton} onClick={this.toInformation}>信息展示</button> */}
           <button className={styles.cmdButton} onClick={this.toInput}>财务分析</button>
+          <button className={styles.cmdButton} onClick={this.toForum}>用户论坛</button>
           <button className={styles.cmdButton} onClick={this.toPersonal}>个人中心</button>
         </div>
       </div>

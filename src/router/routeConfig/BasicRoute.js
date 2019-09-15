@@ -1,13 +1,14 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
-import Login from "../LoginRegister/Login"
-import Register from "../LoginRegister/Register"
-import Main from "../Main"
-import Analysis from "../Analysis"
-import Information from "../Information"
-import Personal from "../Personal"
-import Survey from "../Survey"
+import Login from "../LoginRegister/Login";
+import Register from "../LoginRegister/Register";
+import Main from "../Main";
+import Analysis from "../Analysis";
+import Information from "../Information";
+import Personal from "../Personal";
+import Survey from "../Survey";
+import Forum from "../Forum";
 
 export default [
 	<Route component={ Login } exact path='/login'/>,
@@ -18,4 +19,5 @@ export default [
 	<Route component={ Information } exact path="/information"/>,
 	<Route component={ Personal } exact path="/personal"/>,
 	<Route component={ Survey } exact path="/survey"/>,
+	<Route component={ Forum } exact path="/forum"/>,
 ];
