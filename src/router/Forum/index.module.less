@@ -1,1 +1,48 @@
 @import "../../themes/default.less";
+
+.whole {
+  display: flex;
+  width: 75%;
+  height: 80%;
+
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  overflow-y: scroll;
+
+  .post {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: none;
+    width: 100%;
+    padding: 4vh;
+    box-sizing: border-box;
+    background-color: rgb(193, 183, 169);
+    color: rgb(89, 77, 73);
+    border-radius: 3vh;
+    cursor: pointer;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    transition: .2s;
+
+    .title {
+      font-size: 4vh;
+    }
+
+    .time {
+      margin-top: 2vh;
+      font-size: 2.5vh;
+    }
+  }
+
+  .post:hover {
+    opacity: .8;
+  }
+
+  .new {
+    font-size: 3.5vh;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+}

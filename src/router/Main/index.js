@@ -34,7 +34,7 @@ class Main extends Component {
   }
 
   toForum = () => {
-    this.props.history.push("/forum");
+    message.loading("正在加载用户论坛...", 2, () => {this.props.history.push("/forum");});
   }
   
   toPersonal = () => {
