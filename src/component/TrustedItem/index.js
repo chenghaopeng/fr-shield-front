@@ -45,7 +45,7 @@ export default function TrustedItem(props) {
         data.got === 1 ? 
           data.my.problem.map((item, index) => {
             if (props.that.state.trusted.indexOf(index) !== -1) {
-              return <ToItem title={item[1]} risk={item[2]} index={index}/>;
+              return <ToItem title={item[1]} risk={item[0]} index={index}/>;
             }
           })
          : (data.got === 0 ? <Spin size="large"/> : <Empty/>)
