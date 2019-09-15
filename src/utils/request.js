@@ -40,7 +40,6 @@ function checkStatus(response) {
 export default async function request(url, options) {
   const defaultOptions = {
     credentials: "include",  //允许token认证
-    mode: "cors",
   };
   const newOptions = { ...defaultOptions, ...options };
   if (
