@@ -36,5 +36,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://mockapi.eolinker.com/PfRYztC51a09ad8ab8bcd35bdacd8ad0be1ce13b6f174cc"
+  "proxy": "http://localhost:8080/HuaQiBei"
 }
