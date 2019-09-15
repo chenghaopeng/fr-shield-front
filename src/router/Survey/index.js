@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { Radio, Checkbox, Button, message } from "antd";
 
 import WithHeader from "../../component/WithHeader";
-import { uploadMark } from "../../services/apiHTTP";
+import { setMark } from "../../services/apiHTTP";
 
 const Question = [
   {
@@ -103,7 +103,7 @@ class Survey extends Component {
     window.sessionStorage.mark = mark.toFixed(6);
     message.success("调查完成，感谢您的配合！您的指数是：" + window.sessionStorage.mark + " 。");
     const hide = message.loading("正在上传您的指数...");
-    uploadMark({mark: window.sessionStorage.mark.toString()}).then(res => {
+    setMark({mark: window.sessionStorage.mark.toString()}).then(res => {
       hide();
       if (res.code === 0) {
         message.success("指数上传完成！");

@@ -49,15 +49,15 @@ export const analysis = (stock) => {
   });
 }
 
-export const uploadMark = (payload) => {
-  return request("/user/mark", {
+export const setMark = (payload) => {
+  return request("/user/setmark", {
     method: "POST",
     body: {...payload, username: window.sessionStorage.username}
   });
 }
 
 export const getMark = () => {
-  return request("/user/mark", {
+  return request("/user/getmark", {
     method: "POST",
     body: {username: window.sessionStorage.username}
   });
