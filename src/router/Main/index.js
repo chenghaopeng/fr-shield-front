@@ -34,7 +34,7 @@ class Main extends Component {
   }
 
   toForum = () => {
-    message.loading("正在加载用户论坛...", 2, () => {this.props.history.push("/forum");});
+    message.loading("正在加载用户论坛...", Math.random() * .8, () => {this.props.history.push("/forum");});
   }
   
   toPersonal = () => {

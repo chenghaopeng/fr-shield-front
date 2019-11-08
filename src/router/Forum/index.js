@@ -172,7 +172,8 @@ class Forum extends Component {
           closable={true}
           onClose={this.hidePost}
           visible={this.state.visible}
-          width={"75%"}>
+          width={"75%"}
+          destroyOnClose={true}>
           <div style={detail.main}>
             <div style={detail.title}>
               {post.title}

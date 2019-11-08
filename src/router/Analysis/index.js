@@ -41,6 +41,7 @@ class Analysis extends Component {
         res.data.problem.map((item) => {
           if (item !== 0) problem = [...problem, item];
         });
+        problem.sort((a, b) => { return b[0] - a[0]; });
         res.data.problem = problem;
         this.setState({...this.state, data: {...this.state.data, got: 1, my: res.data}});
       }
