@@ -28,7 +28,7 @@ class Header extends Component {
   }
 
   componentWillMount() {
-    if (!window.sessionStorage.username) {
+    if (!window.sessionStorage.token) {
       this.props.history.push("/login");
     }
   }
@@ -40,7 +40,7 @@ class Header extends Component {
   toLogin = () => {
     logout().then(res => {
       if (res.code === 0) {
-        window.sessionStorage.removeItem("username");
+        window.sessionStorage.removeItem("token");
         this.props.history.push("/login");
       }
     });

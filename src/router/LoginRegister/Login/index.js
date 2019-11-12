@@ -27,7 +27,7 @@ export default class Login extends Component {
       login(values).then(res => {
         hide();
         if (res.code === 0) {
-          window.sessionStorage.username = res.data.username;
+          window.sessionStorage.token = res.data.token;
           window.sessionStorage.mark = parseFloat(res.data.mark).toFixed(6);
           if (window.sessionStorage.mark < 0) {
             this.props.history.push("/survey");

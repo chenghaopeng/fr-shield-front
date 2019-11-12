@@ -9,12 +9,6 @@ import { message, Popover } from "antd";
 import WithHeader from "../../component/WithHeader";
 
 class Main extends Component {
-  componentWillMount() {
-    if (!window.sessionStorage.username) {
-      this.props.history.push("/login");
-    }
-  }
-
   toInput = () => {
     document.getElementById("stock").focus();
   }
