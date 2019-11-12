@@ -53,7 +53,7 @@ export default async function request(url, options) {
         "Content-Type": "application/json; charset=utf-8",
         ...newOptions.headers
       };
-      newOptions.body = JSON.stringify(newOptions.body);
+      newOptions.body = JSON.stringify({...newOptions.body, token: window.sessionStorage.token});
     } else {
       // newOptions.body is FormData
       newOptions.headers = {

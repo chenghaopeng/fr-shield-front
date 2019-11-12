@@ -17,48 +17,48 @@ export const register = (payload) => {
 export const logout = () => {
   return request("/session/logout", {
     method: "POST",
-    body: {token: window.sessionStorage.token}
+    body: {}
   });
 }
 
 export const password = (payload) => {
   return request("/user/password", {
     method: "POST",
-    body: {...payload, token: window.sessionStorage.token}
+    body: payload
   });
 }
 
 export const footprint = () => {
   return request("/user/footprint", {
     method: "POST",
-    body: {token: window.sessionStorage.token}
+    body: {}
   });
 }
 
 export const information = () => {
   return request("/information", {
     method: "POST",
-    body: {token: window.sessionStorage.token}
+    body: {}
   });
 }
 
 export const analysis = (payload) => {
   return request("/analysis", {
     method: "POST",
-    body: {...payload, token: window.sessionStorage.token}
+    body: payload
   });
 }
 
 export const setMark = (payload) => {
   return request("/user/setmark", {
     method: "POST",
-    body: {...payload, token: window.sessionStorage.token}
+    body: payload
   });
 }
 
 export const getMark = () => {
   return request("/user/getmark", {
     method: "POST",
-    body: {token: window.sessionStorage.token}
+    body: {}
   });
 }
