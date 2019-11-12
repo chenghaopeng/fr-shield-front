@@ -35,10 +35,10 @@ export const footprint = () => {
   });
 }
 
-export const information = () => {
+export const information = (payload) => {
   return request("/information", {
     method: "POST",
-    body: {}
+    body: payload
   });
 }
 

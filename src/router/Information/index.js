@@ -13,10 +13,9 @@ class Information extends Component {
   }
 
   componentWillMount() {
-    information().then(res => {
+    information({stock: "000001"}).then(res => {
       if (res.code === 0) {
         this.setState({got: 1, data: res.data});
-        //alert(JSON.stringify(this.state));
       }
       else {
         this.setState({got: 0, data: {}});
@@ -33,4 +32,4 @@ class Information extends Component {
   }
 }
 
-export default WithHeader(withRouter(Information), "信息展示");
+export default WithHeader(withRouter(Information), "数据分析");

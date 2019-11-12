@@ -16,7 +16,7 @@ export default [
 	<Route component={ Main } exact path='/'/>,
 	<Route component={ Analysis } exact path="/analysis/:stock"/>,
 	<Route component={ Analysis } exact path="/analysis/:stock/:nav"/>,
-	<Route component={ Information } exact path="/information"/>,
+	<Route component={ Information } exact path="/information/:stock"/>,
 	<Route component={ Personal } exact path="/personal"/>,
 	<Route component={ Survey } exact path="/survey"/>,
 	<Route component={ Forum } exact path="/forum"/>,
