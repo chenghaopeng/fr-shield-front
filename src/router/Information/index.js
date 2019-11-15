@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styles from "./index.module.less";
 import { withRouter } from "react-router-dom";
-import { Skeleton, Progress, Empty } from "antd";
+import { Skeleton, Progress, Empty, Tabs } from "antd";
 
 import WithHeader from "../../component/WithHeader";
 import { information } from "../../services/apiHTTP";
@@ -67,11 +67,47 @@ class Information extends Component {
       );
     }
   }
+
+  handleTabChange = (activeKey) => {
+    let stock = this.props.match.params.stock.trim();
+    this.props.history.push("/information/" + stock + "/" + activeKey);
+  }
+
+  information = () => {
+    const tabPaneStyle = (str) => {
+      return (
+        <div style={{fontSize: "3.5vh"}}>
+          {str}
+        </div>
+      );
+    }
+    let { nav } = this.props.match.params;
+    if (!nav) nav = 1;
+    if (nav > 4) nav = 4;
+    if (nav < 1) nav = 1;
+    nav = nav.toString();
+    return (
+      <Tabs defaultActiveKey={nav} tabPosition={"left"} style={{height: "80%", width: "90%"}} onChange={this.handleTabChange}>
+        <Tabs.TabPane tab={tabPaneStyle("盈利能力")} key={"1"}>
+          盈利能力
+        </Tabs.TabPane>
+        <Tabs.TabPane tab={tabPaneStyle("运营能力")} key={"2"}>
+          运营能力
+        </Tabs.TabPane>
+        <Tabs.TabPane tab={tabPaneStyle("偿债能力")} key={"3"}>
+          偿债能力
+        </Tabs.TabPane>
+        <Tabs.TabPane tab={tabPaneStyle("发展能力")} key={"4"}>
+          发展能力
+        </Tabs.TabPane>
+      </Tabs>
+    );
+  }
   
   render() {
     return (
       <div className={styles.whole}>
-        {this.state.got === 1 ? JSON.stringify(this.state) : <this.loading />}
+        {this.state.got === 1 ? <this.information /> : <this.loading />}
       </div>
     );
   }
