@@ -11,7 +11,7 @@ import Profit from "./components/Profit";
 class Information extends Component {
   constructor(props) {
     super(props);
-    this.state = {got: 0, cnt: 0, data: [{}, {}, {}, {}], progress: 0};
+    this.state = {got: 0, cnt: 0, data: [[], [], [], []], progress: 0, stockname: "", stockcode: ""};
   }
 
   componentWillMount() {
@@ -24,8 +24,8 @@ class Information extends Component {
       information({stock: stock, number: i.toString()}).then(res => {
         if (res.code === 0) {
           let d = this.state.data;
-          d[i - 1] = res.data;
-          this.setState({cnt: this.state.cnt + 1, data: d});
+          d[i - 1] = res.data.data;
+          this.setState({cnt: this.state.cnt + 1, data: d, stockname: res.data.stockname, stockcode: res.data.stockcode});
         }
         else {
           this.setState({got: -1});
@@ -91,7 +91,7 @@ class Information extends Component {
     return (
       <Tabs defaultActiveKey={nav} tabPosition={"left"} style={{height: "80%", width: "90%"}} onChange={this.handleTabChange}>
         <Tabs.TabPane tab={tabPaneStyle("盈利能力")} key={"1"}>
-          <Profit data={this.state.data} />
+          <Profit csv={this.state.data} />
         </Tabs.TabPane>
         <Tabs.TabPane tab={tabPaneStyle("运营能力")} key={"2"}>
           运营能力

@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Chart, Axis, Tooltip, Geom } from "bizcharts";
+
 import TabBar from "./TabBar";
 
 class Profit extends React.Component {
@@ -8,6 +10,27 @@ class Profit extends React.Component {
     this.state = {id: 1};
   }
   renderChart = () => {
+    const { csv } = this.props;
+    console.log(csv);
+    switch (this.state.id) {
+      case 1:
+        let data = [], cols = [{
+          shijian: { alias: "报告日期" },
+          jinglirun: { alias: "净利润" },
+          shouyilv: { alias: "收益率" }
+        }];
+        for (let i = csv[2][0].length - 1; i >= 1; --i) {
+          data.push({shijian: csv[2][0][i], jinglirun: csv[2][10][i], shouyilv: csv[2][19][i]});
+        }
+        return (
+          <Chart data={data} scale={cols}>
+            <Axis name="shijian" />
+            <Axis name="jinglirun" />
+            <Axis name="shouyilv" />
+            <Geom type="interval" position="shijian*(jinglirun+shouyilv)" />
+          </Chart>
+        );
+    }
     return (
       <div>
         {this.state.id}
