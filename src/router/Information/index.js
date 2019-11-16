@@ -6,6 +6,8 @@ import { Skeleton, Progress, Empty, Tabs } from "antd";
 import WithHeader from "../../component/WithHeader";
 import { information } from "../../services/apiHTTP";
 
+import Profit from "./components/Profit";
+
 class Information extends Component {
   constructor(props) {
     super(props);
@@ -89,7 +91,7 @@ class Information extends Component {
     return (
       <Tabs defaultActiveKey={nav} tabPosition={"left"} style={{height: "80%", width: "90%"}} onChange={this.handleTabChange}>
         <Tabs.TabPane tab={tabPaneStyle("盈利能力")} key={"1"}>
-          盈利能力
+          <Profit data={this.state.data} />
         </Tabs.TabPane>
         <Tabs.TabPane tab={tabPaneStyle("运营能力")} key={"2"}>
           运营能力
