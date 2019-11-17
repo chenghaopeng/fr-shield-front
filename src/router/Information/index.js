@@ -89,7 +89,7 @@ class Information extends Component {
     if (nav < 1) nav = 1;
     nav = nav.toString();
     return (
-      <Tabs defaultActiveKey={nav} tabPosition={"left"} style={{height: "80%", width: "90%"}} onChange={this.handleTabChange}>
+      <Tabs defaultActiveKey={nav} tabPosition={"left"} className={styles.tabs} onChange={this.handleTabChange}>
         <Tabs.TabPane tab={tabPaneStyle("盈利能力")} key={"1"}>
           <Profit csv={this.state.data} />
         </Tabs.TabPane>
