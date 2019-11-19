@@ -95,9 +95,9 @@ class Profit extends React.Component {
         for (let i = r; i >= l; --i) {
           if (!csv[2][0][i] || csv[2][0][i] === "--" || csv[2][10][i] === "--" || parseInt(csv[2][18][i]) === 0 || csv[2][18][i] === "--") continue;
           const t = new Date(csv[2][0][i]).format("yyyy年MM月dd日");
-          data.push({name: "净利润", shijian: t, fenzu: parseInt(csv[2][10][i])});
-          data.push({name: "平均所有者权益", shijian: t, fenzu: parseInt(csv[2][18][i])});
-          data.push({name: "所有者权益报酬率", shijian: t, baochoulv: parseFloat((parseInt(csv[2][10][i]) / parseInt(csv[2][18][i]) * 100).toFixed(2))});
+          data.push({name: "净利润（万）", shijian: t, fenzu: parseInt(csv[2][10][i])});
+          data.push({name: "平均所有者权益（万）", shijian: t, fenzu: parseInt(csv[2][18][i])});
+          data.push({name: "所有者权益报酬率（%）", shijian: t, baochoulv: parseFloat((parseInt(csv[2][10][i]) / parseInt(csv[2][18][i]) * 100).toFixed(2))});
         }
         scale = {
           shijian: { alias: "报告日期" }
@@ -113,6 +113,28 @@ class Profit extends React.Component {
             <Geom type="line" position="shijian*baochoulv" color={"name"} />
           </Chart>
         );
+      case 4:
+        l = Math.floor((this.state.pos - 1) * (csv[2][0].length - 1) / 5 + 1);
+        r = Math.floor(this.state.pos * (csv[2][0].length - 1) / 5);
+        for (let i = r; i >= l; --i) {
+          if (!csv[2][0][i] || csv[2][0][i] === "--" || csv[2][1][i] === "--") continue;
+          const t = new Date(csv[2][0][i]).format("yyyy年MM月dd日");
+          data.push({name: "基本每股收益（元）", shijian: t, shouyi: parseFloat(csv[2][1][i])});
+        }
+        scale = {
+          shijian: { alias: "报告日期" }
+        };
+        return (
+          <Chart data={data} scale={scale} forceFit>
+            <Legend />
+            <Tooltip />
+            <Axis name="shijian" title />
+            <Axis name="shouyi" />
+            <Geom type="interval" position="shijian*shouyi" color={"name"} />
+          </Chart>
+        );
+      default:
+        break;
     }
     return (
       <div>
