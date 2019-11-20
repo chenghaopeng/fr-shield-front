@@ -55,7 +55,6 @@ class Profit extends React.Component {
           maxLRL = Math.max(maxLRL, lirunlv);
           maxLRL = Math.max(maxLRL, jinglirunlv);
         }
-        console.log(data);
         scale = {
           shijian: { alias: "报告日期" },
           fenzu: { type: "log" },

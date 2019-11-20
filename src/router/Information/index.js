@@ -46,7 +46,6 @@ class Information extends Component {
         clearInterval(timer);
         this.setState({...this.state, progress: 100});
         setTimeout(() => { this.setState({...this.state, got: 1}); }, 200);
-        console.log(this.state);
       }
     }, 100);
   }
