@@ -1,6 +1,5 @@
 import React from "react";
 
-import { Slider } from "antd";
 import { Chart, Axis, Tooltip, Geom, Legend } from "bizcharts";
 
 import TabBar from "./TabBar";
@@ -152,9 +151,6 @@ class Profit extends React.Component {
       </div>
     );
   }
-  handleSliderChange = (value) => {
-    this.setState({...this.state, pos: 6 - value});
-  }
   render() {
     return (
       <div>
@@ -162,7 +158,6 @@ class Profit extends React.Component {
           titles={["企业净资产收益率走势", "企业总资产利润率", "所有者权益报酬率", "基本每股收益", "主营业务毛利率"]}
           that={this}
         />
-        <Slider onChange={this.handleSliderChange} min={1} max={5} step={1} />
         <this.renderChart />
       </div>
     );
