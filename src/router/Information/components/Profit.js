@@ -31,8 +31,8 @@ class Profit extends React.Component {
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
-            <Axis name="jinglirun" />
-            <Axis name="shouyilv" />
+            <Axis name="jinglirun" position="left" />
+            <Axis name="shouyilv" position="right" />
             <Geom type="interval" position="shijian*jinglirun" color={"#7B6FEC"} />
             <Geom type="line" position="shijian*shouyilv" color={"#5BC2F3"} />
             <Geom type="point" position="shijian*shouyilv" color={"#5BC2F3"} size={4} shape={"circle"} style={{ stroke: "#fff", lineWidth: 1 }} />
@@ -67,9 +67,9 @@ class Profit extends React.Component {
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
-            <Axis name="fenzu" />
-            <Axis name="lirunlv" />
-            <Axis name="jinglirunlv" />
+            <Axis name="fenzu" position="left" />
+            <Axis name="lirunlv" position="right" />
+            <Axis name="jinglirunlv" visible={false} />
             <Geom type="interval" position="shijian*fenzu" color={"name"} adjust={[{type: "dodge"}]} />
             <Geom type="line" position="shijian*lirunlv" color={"name"} />
             <Geom type="line" position="shijian*jinglirunlv" color={"name"} />
@@ -93,8 +93,8 @@ class Profit extends React.Component {
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
-            <Axis name="fenzu" />
-            <Axis name="baochoulv" />
+            <Axis name="fenzu" position="left" />
+            <Axis name="baochoulv" position="right" />
             <Geom type="interval" position="shijian*fenzu" color={"name"} adjust={[{type: "dodge"}]} />
             <Geom type="line" position="shijian*baochoulv" color={"name"} />
           </Chart>
