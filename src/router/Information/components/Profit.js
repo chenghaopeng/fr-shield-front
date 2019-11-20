@@ -39,54 +39,40 @@ class Profit extends React.Component {
           </Chart>
         );
       case 2:
-        let mxpjzzc = 0, mxlv = 0;
         l = Math.floor((this.state.pos - 1) * (csv[2][0].length - 1) / 5 + 1);
         r = Math.floor(this.state.pos * (csv[2][0].length - 1) / 5);
+        let maxLRL = 0;
         for (let i = r; i >= l; --i) {
           if (!csv[2][0][i] || csv[2][0][i] === "--" || csv[2][9][i] === "--" || csv[2][10][i] === "--" || csv[2][14][i] === "--" || csv[2][14][i + 1] === "--") continue;
           let pingjunzongzichan = Math.floor(parseInt(csv[2][14][i]) + parseInt(csv[2][14][i + 1] ? csv[2][14][i + 1] : csv[2][14][i]) / 2);
-          data.push({
-            shijian: new Date(csv[2][0][i]).format("yyyy年MM月dd日"),
-            jinglirun: parseInt(csv[2][10][i]),
-            zonglirun: parseInt(csv[2][9][i]),
-            pingjunzongzichan: pingjunzongzichan,
-            lirunlv: (parseInt(csv[2][9][i]) / pingjunzongzichan * 100).toFixed(2),
-            jinglirunlv: (parseInt(csv[2][10][i]) / pingjunzongzichan * 100).toFixed(2)
-          });
-          mxpjzzc = Math.max(mxpjzzc, pingjunzongzichan);
-          mxlv = Math.max(mxlv, (parseInt(csv[2][9][i]) / pingjunzongzichan * 100).toFixed(2));
-          mxlv = Math.max(mxlv, (parseInt(csv[2][10][i]) / pingjunzongzichan * 100).toFixed(2));
+          let t = new Date(csv[2][0][i]).format("yyyy年MM月dd日");
+          let lirunlv = parseFloat((parseInt(csv[2][9][i]) / pingjunzongzichan * 100).toFixed(2)), jinglirunlv = parseFloat((parseInt(csv[2][10][i]) / pingjunzongzichan * 100).toFixed(2));
+          data.push({name: "净利润（万）", shijian: t, fenzu: parseInt(csv[2][10][i])});
+          data.push({name: "总利润（万）", shijian: t, fenzu: parseInt(csv[2][9][i])});
+          data.push({name: "平均总资产（万）", shijian: t, fenzu: pingjunzongzichan});
+          data.push({name: "总资产利润率（%）", shijian: t, lirunlv: lirunlv});
+          data.push({name: "总资产净利润率（%）", shijian: t, jinglirunlv: jinglirunlv});
+          maxLRL = Math.max(maxLRL, lirunlv);
+          maxLRL = Math.max(maxLRL, jinglirunlv);
         }
-        mxpjzzc = Math.floor(mxpjzzc * 1.25);
-        mxlv = Math.floor(mxlv * 1.25);
+        console.log(data);
         scale = {
           shijian: { alias: "报告日期" },
-          jinglirun: { alias: "净利润（万）", type: "log", min: 0, max: mxpjzzc },
-          zonglirun: { alias: "总利润（万）", type: "log", min: 0, max: mxpjzzc },
-          pingjunzongzichan: { alias: "平均总资产（万）", type: "log", min: 0, max: mxpjzzc },
-          lirunlv: { alias: "总资产利润率（%）", type: "linear", min: 0, max: mxlv },
-          jinglirunlv: { alias: "总资产净利润率（%）", type: "linear", min: 0, max: mxlv },
+          fenzu: { type: "log" },
+          lirunlv: { type: "linear", min: 0, max: maxLRL * 1.2 },
+          jinglirunlv: { type: "linear", min: 0, max: maxLRL * 1.2 }
         };
         return (
           <Chart data={data} scale={scale} forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
-            <Axis name="jinglirun" position={"left"} />
-            <Axis name="zonglirun" position={"left"}/>
-            <Axis name="pingjunzongzichan" position={"left"} />
-            <Axis name="lirunlv" position={"right"} />
-            <Axis name="jinglirunlv" position={"right"} />
-            <Geom type="line" position="shijian*jinglirun" color={"#786DE8"} style={{ lineWidth: 5 }} />
-            <Geom type="point" position="shijian*jinglirun" color={"#786DE8"} size={8} shape={"circle"} style={{ stroke: "#fff", lineWidth: 1 }} />
-            <Geom type="line" position="shijian*zonglirun" color={"#5BC2F3"} style={{ lineWidth: 5 }} />
-            <Geom type="point" position="shijian*zonglirun" color={"#5BC2F3"} size={8} shape={"circle"} style={{ stroke: "#fff", lineWidth: 1 }} />
-            <Geom type="line" position="shijian*pingjunzongzichan" color={"#45B684"} style={{ lineWidth: 5 }} />
-            <Geom type="point" position="shijian*pingjunzongzichan" color={"#45B684"} size={8} shape={"circle"} style={{ stroke: "#fff", lineWidth: 1 }} />
-            <Geom type="line" position="shijian*lirunlv" color={"#F9588A"} />
-            <Geom type="point" position="shijian*lirunlv" color={"#F9588A"} size={4} shape={"circle"} style={{ stroke: "#fff", lineWidth: 1 }} />
-            <Geom type="line" position="shijian*jinglirunlv" color={"#F8D42B"} />
-            <Geom type="point" position="shijian*jinglirunlv" color={"#F8D42B"} size={4} shape={"circle"} style={{ stroke: "#fff", lineWidth: 1 }} />
+            <Axis name="fenzu" />
+            <Axis name="lirunlv" />
+            <Axis name="jinglirunlv" />
+            <Geom type="interval" position="shijian*fenzu" color={"name"} adjust={[{type: "dodge"}]} />
+            <Geom type="line" position="shijian*lirunlv" color={"name"} />
+            <Geom type="line" position="shijian*jinglirunlv" color={"name"} />
           </Chart>
         );
       case 3:
@@ -133,6 +119,8 @@ class Profit extends React.Component {
             <Geom type="interval" position="shijian*shouyi" color={"name"} />
           </Chart>
         );
+      case 5:
+
       default:
         break;
     }
