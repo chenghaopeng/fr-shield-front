@@ -119,7 +119,30 @@ class Profit extends React.Component {
           </Chart>
         );
       case 5:
-
+        l = Math.floor((this.state.pos - 1) * (csv[1][0].length - 1) / 5 + 1);
+        r = Math.floor(this.state.pos * (csv[1][0].length - 1) / 5);
+        for (let i = r; i >= l; --i) {
+          if (!csv[1][0][i] || csv[1][0][i] === "--" || csv[1][9][i] === "--" || csv[1][2][i] === "--") continue;
+          const t = new Date(csv[1][0][i]).format("yyyy年MM月dd日");
+          const yysr = parseInt(csv[1][2][i]), yycb = parseInt(csv[1][9][i]);
+          data.push({name: "营业收入（万）", shijian: t, fenzu: yysr});
+          data.push({name: "营业成本（万）", shijian: t, fenzu: yycb});
+          data.push({name: "毛利率（%）", shijian: t, maolilv: parseFloat(((yysr - yycb) / yycb).toFixed(2))});
+        }
+        scale = {
+          shijian: { alias: "报告日期" }
+        };
+        return (
+          <Chart data={data} scale={scale} forceFit>
+            <Legend />
+            <Tooltip />
+            <Axis name="shijian" title />
+            <Axis name="fenzu" position="left" />
+            <Axis name="maolilv" position="right" />
+            <Geom type="interval" position="shijian*fenzu" color={"name"} adjust={[{type: "dodge"}]} />
+            <Geom type="line" position="shijian*maolilv" color={"name"} />
+          </Chart>
+        );
       default:
         break;
     }
