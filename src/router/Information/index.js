@@ -8,6 +8,7 @@ import { information } from "../../services/apiHTTP";
 
 import Profit from "./components/Profit";
 import Operation from "./components/Operation";
+import Solvency from "./components/Solvency";
 
 class Information extends Component {
   constructor(props) {
@@ -97,7 +98,7 @@ class Information extends Component {
           <Operation csv={this.state.data} />
         </Tabs.TabPane>
         <Tabs.TabPane tab={tabPaneStyle("偿债能力")} key={"3"}>
-          偿债能力
+          <Solvency csv={this.state.data} />
         </Tabs.TabPane>
         <Tabs.TabPane tab={tabPaneStyle("发展能力")} key={"4"}>
           发展能力
