@@ -9,11 +9,12 @@ import { information } from "../../services/apiHTTP";
 import Profit from "./components/Profit";
 import Operation from "./components/Operation";
 import Solvency from "./components/Solvency";
+import Development from "./components/Development";
 
 class Information extends Component {
   constructor(props) {
     super(props);
-    this.state = {got: 0, cnt: 0, data: [[], [], [], []], progress: 0, stockname: "", stockcode: ""};
+    this.state = {got: 0, cnt: 0, data: [[], [], [], [], []], progress: 0, stockname: "", stockcode: ""};
   }
 
   componentWillMount() {
@@ -22,7 +23,7 @@ class Information extends Component {
       this.props.history.push("/");
       return;
     }
-    for (let i = 1; i <= 4; ++i) {
+    for (let i = 1; i <= 5; ++i) {
       information({stock: stock, number: i.toString()}).then(res => {
         if (res.code === 0) {
           let d = this.state.data;
@@ -39,7 +40,7 @@ class Information extends Component {
   componentDidMount() {
     let timer = setInterval(() => {
       if (this.state.got === -1) clearInterval(timer);
-      if (this.state.cnt !== 4) {
+      if (this.state.cnt !== 5) {
         if (this.state.progress < 98) {
           this.setState({...this.state, progress: this.state.progress + Math.random() * (100 - this.state.progress) / 50});
         }
@@ -48,6 +49,7 @@ class Information extends Component {
         clearInterval(timer);
         this.setState({...this.state, progress: 100});
         setTimeout(() => { this.setState({...this.state, got: 1}); }, 200);
+        console.log(this.state);
       }
     }, 100);
   }
@@ -101,7 +103,7 @@ class Information extends Component {
           <Solvency csv={this.state.data} />
         </Tabs.TabPane>
         <Tabs.TabPane tab={tabPaneStyle("发展能力")} key={"4"}>
-          发展能力
+          <Development csv={this.state.data} />
         </Tabs.TabPane>
       </Tabs>
     );
