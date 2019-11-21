@@ -40,7 +40,7 @@ class Operation extends React.Component {
           zzlhb: { type: "linear", min: minR * 1.2, max: maxR * 1.2 }
         };
         return (
-          <Chart data={data} scale={scale} forceFit>
+          <Chart height={Math.floor(window.innerHeight * 0.55)} data={data} scale={scale} forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
@@ -77,7 +77,7 @@ class Operation extends React.Component {
           zzlhb: { type: "linear", min: minR * 1.2, max: maxR * 1.2 }
         };
         return (
-          <Chart data={data} scale={scale} forceFit>
+          <Chart height={Math.floor(window.innerHeight * 0.55)} data={data} scale={scale} forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
@@ -114,7 +114,7 @@ class Operation extends React.Component {
           zzlhb: { type: "linear", min: minR * 1.2, max: maxR * 1.2 }
         };
         return (
-          <Chart data={data} scale={scale} forceFit>
+          <Chart height={Math.floor(window.innerHeight * 0.55)} data={data} scale={scale} forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
@@ -152,7 +152,7 @@ class Operation extends React.Component {
           zzlhb: { type: "linear", min: minR * 1.2, max: maxR * 1.2 }
         };
         return (
-          <Chart data={data} scale={scale} forceFit>
+          <Chart height={Math.floor(window.innerHeight * 0.55)} data={data} scale={scale} forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />

@@ -112,6 +112,7 @@ class Information extends Component {
   render() {
     return (
       <div className={styles.whole}>
+        <div className={styles.title}>{this.state.got === 1 ? this.state.stockname + " " + this.state.stockcode : ""}</div>
         {this.state.got === 1 ? <this.information /> : <this.loading />}
       </div>
     );

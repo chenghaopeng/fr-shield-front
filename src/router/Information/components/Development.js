@@ -28,7 +28,7 @@ class Development extends React.Component {
           shijian: { alias: "报告日期" },
         };
         return (
-          <Chart data={data} scale={scale} forceFit>
+          <Chart height={Math.floor(window.innerHeight * 0.55)} data={data} scale={scale} forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
@@ -53,7 +53,7 @@ class Development extends React.Component {
           shijian: { alias: "报告日期" },
         };
         return (
-          <Chart data={data} scale={scale} forceFit>
+          <Chart height={Math.floor(window.innerHeight * 0.55)} data={data} scale={scale} forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
@@ -78,7 +78,7 @@ class Development extends React.Component {
           shijian: { alias: "报告日期" },
         };
         return (
-          <Chart data={data} scale={scale} forceFit>
+          <Chart height={Math.floor(window.innerHeight * 0.55)} data={data} scale={scale} forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
