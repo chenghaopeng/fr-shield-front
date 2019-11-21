@@ -21,7 +21,7 @@ class Solvency extends React.Component {
           let t = new Date(csv[0][0][i]).format("yyyy年MM月dd日");
           data.push({name: "负债总额（万）", shijian: t, fenzu: parseInt(csv[0][94][i])});
           data.push({name: "资产总额（万）", shijian: t, fenzu: parseInt(csv[0][52][i])});
-          data.push({name: "资产负债率（%）", shijian: t, fuzhailv: parseFloat((parseInt(csv[0][94][i]) / parseInt(csv[0][52][i]) * 100).toFixed(2))});
+          data.push({name: "资产负债率（%）", shijian: t, bilv: parseFloat((parseInt(csv[0][94][i]) / parseInt(csv[0][52][i]) * 100).toFixed(2))});
         }
         scale = {
           shijian: { alias: "报告日期" },
@@ -32,9 +32,9 @@ class Solvency extends React.Component {
             <Tooltip />
             <Axis name="shijian" title />
             <Axis name="fenzu" position="left" />
-            <Axis name="fuzhailv" position="right" />
+            <Axis name="bilv" position="right" />
             <Geom type="interval" position="shijian*fenzu" color={"name"} adjust={[{type: "dodge"}]} />
-            <Geom type="line" position="shijian*fuzhailv" color={"name"} />
+            <Geom type="line" position="shijian*bilv" color={"name"} />
           </Chart>
         );
       case 2:
@@ -45,7 +45,7 @@ class Solvency extends React.Component {
           let t = new Date(csv[0][0][i]).format("yyyy年MM月dd日");
           data.push({name: "负债总额（万）", shijian: t, fenzu: parseInt(csv[0][94][i])});
           data.push({name: "所有者权益总额（万）", shijian: t, fenzu: parseInt(csv[0][107][i])});
-          data.push({name: "产权比率（%）", shijian: t, fuzhailv: parseFloat((parseInt(csv[0][94][i]) / parseInt(csv[0][107][i])).toFixed(2))});
+          data.push({name: "产权比率（%）", shijian: t, bilv: parseFloat((parseInt(csv[0][94][i]) / parseInt(csv[0][107][i])).toFixed(2))});
         }
         scale = {
           shijian: { alias: "报告日期" },
@@ -57,9 +57,9 @@ class Solvency extends React.Component {
             <Tooltip />
             <Axis name="shijian" title />
             <Axis name="fenzu" position="left" />
-            <Axis name="fuzhailv" position="right" />
+            <Axis name="bilv" position="right" />
             <Geom type="interval" position="shijian*fenzu" color={"name"} adjust={[{type: "dodge"}]} />
-            <Geom type="line" position="shijian*fuzhailv" color={"name"} />
+            <Geom type="line" position="shijian*bilv" color={"name"} />
           </Chart>
         );
       case 3:
@@ -70,7 +70,7 @@ class Solvency extends React.Component {
           let t = new Date(csv[0][0][i]).format("yyyy年MM月dd日");
           data.push({name: "负债总额（万）", shijian: t, fenzu: parseInt(csv[0][94][i])});
           data.push({name: "经营活动净现金流量（万）", shijian: t, fenzu: parseInt(csv[3][81][i])});
-          data.push({name: "经营活动净现金比率（%）", shijian: t, fuzhailv: parseFloat((parseInt(csv[3][81][i]) / parseInt(csv[0][94][i]) * 100).toFixed(2))});
+          data.push({name: "经营活动净现金比率（%）", shijian: t, bilv: parseFloat((parseInt(csv[3][81][i]) / parseInt(csv[0][94][i]) * 100).toFixed(2))});
         }
         scale = {
           shijian: { alias: "报告日期" },
@@ -82,9 +82,9 @@ class Solvency extends React.Component {
             <Tooltip />
             <Axis name="shijian" title />
             <Axis name="fenzu" position="left" />
-            <Axis name="fuzhailv" position="right" />
+            <Axis name="bilv" position="right" />
             <Geom type="interval" position="shijian*fenzu" color={"name"} adjust={[{type: "dodge"}]} />
-            <Geom type="line" position="shijian*fuzhailv" color={"name"} />
+            <Geom type="line" position="shijian*bilv" color={"name"} />
           </Chart>
         );
       default:
