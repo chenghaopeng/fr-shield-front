@@ -56,7 +56,7 @@ class Profit extends React.Component {
         }
         scale = {
           shijian: { alias: "报告日期" },
-          fenzu: { type: "log" },
+          fenzu: { type: "linear" },
           lirunlv: { type: "linear", min: 0, max: maxLRL * 1.2 },
           jinglirunlv: { type: "linear", min: 0, max: maxLRL * 1.2 }
         };
