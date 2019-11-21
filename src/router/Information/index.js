@@ -7,6 +7,7 @@ import WithHeader from "../../component/WithHeader";
 import { information } from "../../services/apiHTTP";
 
 import Profit from "./components/Profit";
+import Operation from "./components/Operation";
 
 class Information extends Component {
   constructor(props) {
@@ -93,7 +94,7 @@ class Information extends Component {
           <Profit csv={this.state.data} />
         </Tabs.TabPane>
         <Tabs.TabPane tab={tabPaneStyle("运营能力")} key={"2"}>
-          运营能力
+          <Operation csv={this.state.data} />
         </Tabs.TabPane>
         <Tabs.TabPane tab={tabPaneStyle("偿债能力")} key={"3"}>
           偿债能力
