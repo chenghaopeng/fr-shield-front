@@ -2,13 +2,13 @@ import React from "react";
 import styles from "./index.module.less";
 import Frame from "../../components/Frame";
 import { withRouter } from "react-router"
-import { Input, Icon, Button, message } from "antd";
-import { login, register } from "../../services/apiHTTP";
+import { Input, Icon, Button, message, Row, Col, Spin } from "antd";
+import { login, register, footprint } from "../../services/apiHTTP";
 
 class User extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {loged: window.localStorage.token ? 1 : 0, login: {}, register: {}};
+    this.state = {loged: window.sessionStorage.token ? 1 : 0, login: {}, register: {}, fps: [], fp: false};
   }
   handleLoginChange = (e) => {
     let state = this.state;
@@ -22,7 +22,7 @@ class User extends React.Component {
   }
   handleLogin = () => {
     const form = this.state.login;
-    if (form.username === "" || form.password === "") {
+    if (!form.username || !form.password) {
       message.error("请输入用户名和密码！");
       return;
     }
@@ -31,8 +31,9 @@ class User extends React.Component {
       hide();
       if (res.code === 0) {
         message.success("欢迎回来，" + res.data.username + "！");
+        window.sessionStorage.token = res.data.token;
+        window.sessionStorage.username = res.data.username;
         this.setState({...this.state, loged: 1});
-        window.localStorage.token = res.data.token;
       }
       else {
         message.error("用户名或密码错误！");
@@ -41,7 +42,7 @@ class User extends React.Component {
   }
   handleRegister = () => {
     const form = this.state.register;
-    if (form.username === "" || form.password === "" || form.repeat === "") {
+    if (!form.username || !form.password || !form.repeat ) {
       message.error("请输入用户名和密码！");
       return;
     }
@@ -66,13 +67,9 @@ class User extends React.Component {
       width: "100%",
       margin: ".5em 0"
     };
-    const titleStyle = {
-      fontSize: "1.3em",
-      marginBottom: ".5em"
-    }
     const Login = (
-      <div className={`${styles.defaultShadowBox} ${styles.loginregister}`}>
-        <div style={titleStyle}>登 录</div>
+      <div className={`${styles.defaultBox} ${styles.loginregister}`}>
+        <div className={styles.defaultTitle}>登 录</div>
         <Input name="username" prefix={<Icon type="user"/>} placeholder="用户名" onChange={this.handleLoginChange} style={inputStyle} />
         <Input name="password" prefix={<Icon type="lock"/>} type="password" placeholder="密码" onChange={this.handleLoginChange} style={inputStyle} />
         <Button type="primary" htmlType="submit" onClick={this.handleLogin} style={inputStyle}>登录</Button>
@@ -80,8 +77,8 @@ class User extends React.Component {
       </div>
     );
     const Register = (
-      <div className={`${styles.defaultShadowBox} ${styles.loginregister}`}>
-        <div style={titleStyle}>注 册</div>
+      <div className={`${styles.defaultBox} ${styles.loginregister}`}>
+        <div className={styles.defaultTitle}>注 册</div>
         <Input name="username" prefix={<Icon type="user"/>} placeholder="用户名" onChange={this.handleLoginChange} style={inputStyle} />
         <Input name="password" prefix={<Icon type="lock"/>} type="password" placeholder="密码" onChange={this.handleLoginChange} style={inputStyle} />
         <Input name="repeat" prefix={<Icon type="lock"/>} type="password" placeholder="重复密码" onChange={this.handleLoginChange} style={inputStyle} />
@@ -92,15 +89,47 @@ class User extends React.Component {
     return this.state.loged === 0 ? Login : Register;
   }
   render() {
-    const component = (
-      <div className={styles.whole}>
-        {
-          this.state.loged === 1 ?
-            <div className={styles.defaultShadowBox}>
-              
-            </div>
-          : <this.LoginRegister />
+    let component;
+    if (this.state.loged === 1) {
+      footprint().then(res => {
+        if (res.code === 0) {
+          this.setState({...this.state, fp: true, fps: res.data.footprints});
         }
+      });
+      component = (
+        <div className={styles.whole}>
+          <Row className={styles.defaultRow}>
+            <Col span={24} className={`${styles.defaultBox} ${styles.hello}`}>
+              {window.sessionStorage.username}，您好！
+            </Col>
+          </Row>
+          <Row className={styles.defaultRow}>
+            <Col span={12} className={styles.defaultBox}>
+              <div className={styles.defaultTitle}>
+                足迹
+              </div>
+              <div className={styles.footprints}>
+                {this.state.fp ? this.state.fps.map((item, index) => {
+                  return (
+                    <div className={styles.footprint} key={index}>
+                      {item}
+                    </div>
+                  );
+                }) : <Spin size="large" />}
+              </div>
+            </Col>
+            <Col span={11} offset={1} className={styles.defaultBox}>
+              <div className={styles.defaultTitle}>
+                修改密码
+              </div>
+            </Col>
+          </Row>
+        </div>
+      );
+    }
+    else component = (
+      <div className={styles.whole}>
+        <this.LoginRegister />
       </div>
     );
     return <Frame node={component} title="个人中心" />
