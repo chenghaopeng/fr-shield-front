@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App.less';
 import RouteConfig from './router/index.route';
 
 export default class App extends Component {

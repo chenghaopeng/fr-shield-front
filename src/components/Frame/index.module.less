@@ -1,0 +1,65 @@
+@import "../../themes/default.less";
+
+.whole {
+  display: flex;
+  flex: none;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: flex-start;
+  width: 75%;
+  max-width: 65em;
+  padding: 2em;
+
+  .header {
+    display: flex;
+    flex-flow: row wrap;
+    flex: none;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+      font-size: 3em;
+      color: @default-title-color;
+      flex: 1;
+    }
+
+    .navigator {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: flex-start;
+      align-items: center;
+    }
+  }
+
+  .searchBox {
+    display: flex;
+    flex: none;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2em;
+    width: 100%;
+
+    .searchText {
+      height: 2.5em;
+      width: 30%;
+      font-size: @default-theme-font-size;
+    }
+
+    .searchText:focus {
+      width: 50%;
+      font-size: 1.5em;
+      height: 3em;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex: none;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 3em;
+  }
+}
