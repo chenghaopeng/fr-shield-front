@@ -16,6 +16,8 @@ class Frame extends React.Component {
     }
   }
   render() {
+    document.title = "FR Shield";
+    if (this.props.title) document.title += " " + this.props.title;
     return (
       <div className={styles.whole}>
         <div className={styles.header}>
