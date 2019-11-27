@@ -14,3 +14,21 @@
 .defaultShadowBox:hover {
   box-shadow: @default-shadow-hover;
 }
+
+.defaultBox:extend(.defaultShadowBox all) {
+  padding: 1em;
+}
+
+.defaultRow {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 1em 0;
+}
+
+.defaultTitle {
+  font-size: 1em;
+  margin-bottom: .5em;
+}
