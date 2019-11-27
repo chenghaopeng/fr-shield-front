@@ -3,8 +3,13 @@ import styles from "./index.module.less";
 import { withRouter } from "react-router"
 import FlatButton from "../FlatButton/FlatButton";
 import { Input, message } from "antd";
+import { logout } from "../../services/apiHTTP";
 
 class Frame extends React.Component {
+  constructor(props) {
+    super(props);
+    if (!window.sessionStorage.token && this.props.title !== "个人中心") this.props.history.push("/user");
+  }
   handleSearch = (e) => {
     if (e.keyCode === 13) {
       const stock = e.target.value.trim();
@@ -13,7 +18,23 @@ class Frame extends React.Component {
         return;
       }
       this.props.history.push("/analysis/" + stock);
+      if (this.props.that) this.props.that.refresh(stock);
     }
+  }
+  handleLogout = () => {
+    const hide = message.loading("正在退出...", 0);
+    logout().then(res => {
+      hide();
+      if (res.code === 0) {
+        message.success("退出登录成功！");
+        window.sessionStorage.clear();
+        this.props.history.push("/");
+        this.props.history.push("/user");
+      }
+      else {
+        message.error("退出登录失败！");
+      }
+    });
   }
   render() {
     document.title = "FR Shield";
@@ -29,6 +50,7 @@ class Frame extends React.Component {
             <FlatButton text="股票浏览" href="/stocks" />
             <FlatButton text="用户论坛" href="/forum" />
             <FlatButton text="个人中心" href="/user" />
+            {window.sessionStorage.token ? <FlatButton text="登出" onClick={this.handleLogout} /> : ""}
           </div>
         </div>
         <div className={styles.searchBox}>
