@@ -3,12 +3,13 @@ import styles from "./index.module.less";
 import Frame from "../../components/Frame";
 import { withRouter } from "react-router"
 import FlatButton from "../../components/FlatButton/FlatButton";
-import { Row, Col, Spin } from "antd";
+import { Row, Col, Spin, List } from "antd";
 import { information, emotion } from "../../services/apiHTTP";
 import Profit from "./Information/Profit";
 import Operation from "./Information/Operation";
 import Solvency from "./Information/Solvency";
 import Development from "./Information/Development";
+import { Chart, Coord, Tooltip, Legend, Geom } from "bizcharts";
 
 class Analysis extends React.Component {
   constructor(props) {
@@ -69,7 +70,56 @@ class Analysis extends React.Component {
     if (this.state.status[1] !== 1) return <this.getEmotionAnly />;
     let component;
     if (id === 1) component = <div className={styles.redu}>{this.state.datas[1].redu}</div>;
-    if (id === 2) component = <div></div>;
+    if (id === 2) {
+      let emotion_data = [
+        {
+          emotion: "十分悲观",
+          number: 0
+        },
+        {
+          emotion: "悲观",
+          number: 0
+        },
+        {
+          emotion: "中性偏悲观",
+          number: 0
+        },
+        {
+          emotion: "中性",
+          number: 0
+        },
+        {
+          emotion: "中性偏乐观",
+          number: 0
+        },
+        {
+          emotion: "乐观",
+          number: 0
+        },
+        {
+          emotion: "十分乐观",
+          number: 0
+        }
+      ];
+      this.state.datas[1].qg.map(item => emotion_data[item].number++);
+      component = (
+        <Chart height={300} data={emotion_data} padding="auto" forceFit>
+          <Coord type="polar" />
+          <Tooltip />
+          <Legend position="right" />
+          <Geom type="interval" color="emotion" position="emotion*number" />
+        </Chart>
+      );
+    }
+    const ListSize = "default";
+    if (id === 3) {
+      let fxyj_data = [];
+      this.state.datas[1].fxyj.map(item => item.map(item => fxyj_data.push(item)));
+      component = <List size={ListSize} bordered dataSource={fxyj_data} renderItem={item => <List.Item>{item}</List.Item>} />;
+    }
+    if (id === 4) component = <List size={ListSize} bordered dataSource={this.state.datas[1].cwpj} renderItem={item => <List.Item>{item}</List.Item>} />;
+    if (id === 5) component = <List size={ListSize} bordered dataSource={this.state.datas[1].sjpj} renderItem={item => <List.Item>{item}</List.Item>} />;
+    if (id === 6) component = <List size={ListSize} bordered dataSource={this.state.datas[1].jkpj} renderItem={item => <List.Item>{item}</List.Item>} />;
     return component;
   }
   render() {
@@ -113,13 +163,29 @@ class Analysis extends React.Component {
         : ""}
         { this.state.view === 3 ?
           <Row className={styles.defaultRow}>
-            <Col span={5} className={styles.defaultBox}>
+            <Col span={15} className={styles.defaultBox}>
+              <div className={styles.defaultTitle}>情感分布</div>
+              {this.renderEmotionAnly(2)}
+            </Col>
+            <Col span={8} offset={1} className={styles.defaultBox}>
               <div className={styles.defaultTitle}>舆论热度</div>
               {this.renderEmotionAnly(1)}
             </Col>
-            <Col span={10} offset={1} className={styles.defaultBox}>
-              <div className={styles.defaultTitle}>情感分布</div>
-              {this.renderEmotionAnly(2)}
+            <Col span={24} className={styles.defaultBox}>
+              <div className={styles.defaultTitle}>分析意见</div>
+              {this.renderEmotionAnly(3)}
+            </Col>
+            <Col span={24} className={styles.defaultBox}>
+              <div className={styles.defaultTitle}>财务评价</div>
+              {this.renderEmotionAnly(4)}
+            </Col>
+            <Col span={24} className={styles.defaultBox}>
+              <div className={styles.defaultTitle}>事件评价</div>
+              {this.renderEmotionAnly(5)}
+            </Col>
+            <Col span={24} className={styles.defaultBox}>
+              <div className={styles.defaultTitle}>近况评价</div>
+              {this.renderEmotionAnly(6)}
             </Col>
           </Row>
         : ""}
