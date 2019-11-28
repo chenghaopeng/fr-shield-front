@@ -2,13 +2,15 @@ import React from "react";
 import styles from "./index.module.less";
 import { withRouter } from "react-router"
 import FlatButton from "../FlatButton/FlatButton";
-import { Input, message } from "antd";
+import { Input, message, Popover } from "antd";
 import { logout } from "../../services/apiHTTP";
+import { AssociateStock } from "../../utils/stocks";
 
 class Frame extends React.Component {
   constructor(props) {
     super(props);
     if (!window.sessionStorage.token && this.props.title !== "个人中心" && this.props.title) this.props.history.push("/user");
+    this.state = {stock: ""};
   }
   handleSearch = (e) => {
     if (e.keyCode === 13) {
@@ -17,9 +19,11 @@ class Frame extends React.Component {
         message.error("请输入股票名称或代码！");
         return;
       }
-      this.props.history.push("/analysis/" + stock);
-      if (this.props.that) this.props.that.refresh(stock);
+      this.handleGoAnalysis(stock);
     }
+  }
+  handleChange = (e) => {
+    this.setState({...this.state, stock: e.target.value.trim()});
   }
   handleLogout = () => {
     const hide = message.loading("正在退出...", 0);
@@ -36,9 +40,31 @@ class Frame extends React.Component {
       }
     });
   }
+  handleGoAnalysis = (stock) => {
+    this.setState({...this.state, stock: stock});
+    this.props.history.push("/analysis/" + stock);
+    if (this.props.that) this.props.that.refresh(stock);
+  }
   render() {
     document.title = "FR Shield";
     if (this.props.title) document.title += " " + this.props.title;
+    let content;
+    if (this.state.stock === "") content = <div className={styles.recommendPlain}>在这里将给出搜索建议</div>;
+    else {
+      const stocks = AssociateStock(this.state.stock);
+      if (stocks === false || stocks.length === 0) content = <div className={styles.recommendPlain}>没有搜索建议</div>;
+      else {
+        content = (
+          <div>
+            {stocks.map((item, index) => {
+              return (
+                <div key={index} className={`${styles.recommended} ${styles.cursorPointer}`} onClick={this.handleGoAnalysis.bind(this, item[0])}>{item[0] + "：" + item[1]}</div>
+              );
+            })}
+          </div>
+        );
+      }
+    }
     return (
       <div className={styles.whole}>
         <div className={styles.header}>
@@ -55,7 +81,9 @@ class Frame extends React.Component {
         </div>
         {window.sessionStorage.token ? 
           <div className={styles.searchBox}>
-            <Input className={`${styles.defaultShadowBox} ${styles.searchText}`} placeholder="搜索股票名称或代码.." onKeyDown={this.handleSearch} />
+            <Popover content={content} trigger="focus" placement="bottom">
+              <Input className={`${styles.defaultShadowBox} ${styles.searchText}`} placeholder="搜索股票名称或代码.." onKeyDown={this.handleSearch} onChange={this.handleChange} value={this.state.stock} />
+            </Popover>
           </div>
         : ""}
         <div className={styles.content}>
