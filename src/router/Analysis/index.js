@@ -3,22 +3,23 @@ import styles from "./index.module.less";
 import Frame from "../../components/Frame";
 import { withRouter } from "react-router"
 import FlatButton from "../../components/FlatButton/FlatButton";
-import { Row, Col, Spin, List } from "antd";
+import { Row, Col, Spin, List, Descriptions } from "antd";
 import { information, emotion } from "../../services/apiHTTP";
 import Profit from "./Information/Profit";
 import Operation from "./Information/Operation";
 import Solvency from "./Information/Solvency";
 import Development from "./Information/Development";
 import { Chart, Coord, Tooltip, Legend, Geom } from "bizcharts";
+import { FindStock } from "../../utils/stocks";
 
 class Analysis extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {stockname: this.props.match.params.stock, stockcode: "", view: 1, status: [-1, -1, -1], datas: [[[], [], [], [], []], {}, {}]};
+    this.state = {stock: FindStock(this.props.match.params.stock), stockname: this.props.match.params.stock, stockcode: "", view: 1, status: [-1, -1, -1], datas: [[[], [], [], [], []], {}, {}]};
     this.refresh(this.props.match.params.stock);
   }
   refresh = (stockname) => {
-    this.setState({stockname: stockname, stockcode: "", view: 1, status: [-1, -1, -1], datas: [[[], [], [], [], []], {}, {}]});
+    this.setState({stock: FindStock(stockname), stockname: stockname, stockcode: "", view: 1, status: [-1, -1, -1], datas: [[[], [], [], [], []], {}, {}]});
   }
   toView = view => {
     this.setState({...this.state, view: view});
@@ -56,6 +57,32 @@ class Analysis extends React.Component {
       });
     }
     return <Spin />
+  }
+  renderInformation = () => {
+    if (!this.state.stock) return <p>股票名称或代码错误！</p>
+    return (
+      <Descriptions column={2} bordered>
+        <Descriptions.Item label="股票代码">{this.state.stock[0]}</Descriptions.Item>
+        <Descriptions.Item label="中文简称">{this.state.stock[1]}</Descriptions.Item>
+        <Descriptions.Item label="公司全称" span={2}>{this.state.stock[2]}</Descriptions.Item>
+        <Descriptions.Item label="英文名称">{this.state.stock[3]}</Descriptions.Item>
+        <Descriptions.Item label="注册资本">{this.state.stock[4]}</Descriptions.Item>
+        <Descriptions.Item label="员工人数">{this.state.stock[5]}</Descriptions.Item>
+        <Descriptions.Item label="地域">{this.state.stock[6]}</Descriptions.Item>
+        <Descriptions.Item label="办公地址">{this.state.stock[7]}</Descriptions.Item>
+        <Descriptions.Item label="董事长">{this.state.stock[8]}</Descriptions.Item>
+        <Descriptions.Item label="董事会秘书">{this.state.stock[9]}</Descriptions.Item>
+        <Descriptions.Item label="法人代表">{this.state.stock[10]}</Descriptions.Item>
+        <Descriptions.Item label="总经理">{this.state.stock[11]}</Descriptions.Item>
+        <Descriptions.Item label="CSRC行业门类">{this.state.stock[14]}</Descriptions.Item>
+        <Descriptions.Item label="CSRC行业大类">{this.state.stock[15]}</Descriptions.Item>
+        <Descriptions.Item label="CSRC行业中类">{this.state.stock[16]}</Descriptions.Item>
+        <Descriptions.Item label="SSE行业">{this.state.stock[17]}</Descriptions.Item>
+        <Descriptions.Item label="境外上市地">{this.state.stock[18]}</Descriptions.Item>
+        <Descriptions.Item label="主营业务" span={2}>{this.state.stock[12]}</Descriptions.Item>
+        <Descriptions.Item label="经营范围" span={2}>{this.state.stock[13]}</Descriptions.Item>
+      </Descriptions>
+    );
   }
   renderDataAnly = (id) => {
     if (this.state.status[0] !== 5) return <this.getDataAnly />;
@@ -137,7 +164,8 @@ class Analysis extends React.Component {
         { this.state.view === 1 ?
           <Row className={styles.defaultRow}>
             <Col span={24} className={styles.defaultBox}>
-              这是股票资料，以后再说
+              <div className={styles.defaultTitle}>股票资料</div>
+              {this.renderInformation()}
             </Col>
           </Row>
         : ""}
