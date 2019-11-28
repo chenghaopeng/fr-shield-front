@@ -1,1 +1,31 @@
 @import "../../themes/default.less";
+
+.whole {
+  display: flex;
+  flex: 1;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  .stocks {
+    display: flex;
+    flex: 1;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+
+    .list {
+      width: 100%;
+      margin-top: 1em;
+    }
+
+    .item {
+      color: rgba(0, 0, 0, .65);
+    }
+
+    .item:hover {
+      color: @default-title-color;
+    }
+  }
+}
