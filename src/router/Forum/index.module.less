@@ -1,1 +1,86 @@
 @import "../../themes/default.less";
+
+.whole {
+  display: flex;
+  flex: 1;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  .publish {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    width: 100%;
+    font-size: 1.2em;
+  }
+
+  .post {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+
+    .title {
+      font-size: 1.3em;
+      font-weight: 500;
+    }
+
+    .time {
+      margin-top: .5em;
+    }
+
+    .content {
+      margin-top: 1em;
+      line-height: 1.7em;
+    }
+
+    .expand {
+      font-weight: 700;
+      margin-top: 1em;
+      width: 100%;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+    }
+
+    .comments{
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      margin-top: 2em;
+      width: 100%;
+
+      .head {
+        font-size: 1.2em;
+      }
+
+      .name {
+        font-size: 1.1em;
+      }
+
+      .time {
+        margin: 0;
+      }
+
+      .submit {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 1em;
+
+        .icon {
+          margin-right: .5em;
+        }
+      }
+
+      .input {
+        margin-top: .5em;
+      }
+    }
+  }
+}
