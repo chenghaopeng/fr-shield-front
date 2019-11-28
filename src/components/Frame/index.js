@@ -86,7 +86,7 @@ class Frame extends React.Component {
         {window.sessionStorage.token ? 
           <div className={styles.searchBox}>
             <Popover content={content} trigger="focus" placement="bottom">
-              <Input id="search" className={`${styles.defaultShadowBox} ${styles.searchText}`} placeholder="搜索股票名称或代码.." onKeyDown={this.handleSearch} onChange={this.handleChange} value={this.state.stock} />
+              <Input id="search" autoComplete={"off"} className={`${styles.defaultShadowBox} ${styles.searchText}`} placeholder="搜索股票名称或代码.." onKeyDown={this.handleSearch} onChange={this.handleChange} value={this.state.stock} />
             </Popover>
           </div>
         : ""}
