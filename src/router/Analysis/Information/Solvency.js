@@ -28,7 +28,7 @@ class Solvency extends React.Component {
           shijian: { alias: "报告日期" },
         };
         return (
-          <Chart height={500} data={data} scale={scale} forceFit>
+          <Chart height={500} data={data} scale={scale} padding="auto" forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
@@ -53,7 +53,7 @@ class Solvency extends React.Component {
           fenzu: { type: "pow" }
         };
         return (
-          <Chart height={500} data={data} scale={scale} forceFit>
+          <Chart height={500} data={data} scale={scale} padding="auto" forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
@@ -78,7 +78,7 @@ class Solvency extends React.Component {
           fenzu: { type: "linear" }
         };
         return (
-          <Chart height={500} data={data} scale={scale} forceFit>
+          <Chart height={500} data={data} scale={scale} padding="auto" forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />

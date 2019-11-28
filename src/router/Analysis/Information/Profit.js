@@ -27,7 +27,7 @@ class Profit extends React.Component {
           data.push({shijian: DateFormat(csv[2][0][i]), jinglirun: parseInt(csv[2][10][i]), shouyilv: parseFloat(csv[2][19][i])});
         }
         return (
-          <Chart height={500} data={data} scale={scale} forceFit>
+          <Chart height={500} data={data} scale={scale} padding="auto" forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
@@ -62,7 +62,7 @@ class Profit extends React.Component {
           jinglirunlv: { type: "linear", min: 0, max: maxLRL * 1.2 }
         };
         return (
-          <Chart height={500} data={data} scale={scale} forceFit>
+          <Chart height={500} data={data} scale={scale} padding="auto" forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
@@ -88,7 +88,7 @@ class Profit extends React.Component {
           shijian: { alias: "报告日期" }
         };
         return (
-          <Chart height={500} data={data} scale={scale} forceFit>
+          <Chart height={500} data={data} scale={scale} padding="auto" forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
@@ -110,7 +110,7 @@ class Profit extends React.Component {
           shijian: { alias: "报告日期" }
         };
         return (
-          <Chart height={500} data={data} scale={scale} forceFit>
+          <Chart height={500} data={data} scale={scale} padding="auto" forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
@@ -133,7 +133,7 @@ class Profit extends React.Component {
           shijian: { alias: "报告日期" }
         };
         return (
-          <Chart height={500} data={data} scale={scale} forceFit>
+          <Chart height={500} data={data} scale={scale} padding="auto" forceFit>
             <Legend />
             <Tooltip />
             <Axis name="shijian" title />
