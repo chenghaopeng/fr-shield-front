@@ -154,7 +154,7 @@ class Analysis extends React.Component {
       <div className={styles.whole}>
         <div className={styles.tabs}>
           <FlatButton text={this.state.stock[0] + "：" + this.state.stock[1]} style={{flex: "1", marginLeft: "0"}} />
-          <FlatButton text="股票资料" onClick={this.toView.bind(this, 1)} />
+          <FlatButton text="基本资料" onClick={this.toView.bind(this, 1)} />
           <FlatButton text="数据分析" onClick={this.toView.bind(this, 2)} />
           <FlatButton text="舆情分析" onClick={this.toView.bind(this, 3)} />
           <FlatButton text="财务分析" onClick={this.toView.bind(this, 4)} />
