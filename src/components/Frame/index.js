@@ -45,6 +45,9 @@ class Frame extends React.Component {
     this.props.history.push("/analysis/" + stock);
     if (this.props.that) this.props.that.refresh(stock);
   }
+  setFocus = () => {
+    document.getElementById("search").focus();
+  }
   render() {
     document.title = "FR Shield";
     if (this.props.title) document.title += " " + this.props.title;
@@ -74,6 +77,7 @@ class Frame extends React.Component {
           <div className={styles.navigator}>
             <FlatButton text="首 页" href="/" />
             {window.sessionStorage.token ? <FlatButton text="股票浏览" href="/stocks" /> : ""}
+            {window.sessionStorage.token ? <FlatButton text="综合分析" onClick={this.setFocus} /> : ""}
             {window.sessionStorage.token ? <FlatButton text="用户论坛" href="/forum" /> : ""}
             <FlatButton text={window.sessionStorage.token ? "个人中心" : "登录"} href="/user" />
             {window.sessionStorage.token ? <FlatButton text="登出" onClick={this.handleLogout} /> : ""}
@@ -82,7 +86,7 @@ class Frame extends React.Component {
         {window.sessionStorage.token ? 
           <div className={styles.searchBox}>
             <Popover content={content} trigger="focus" placement="bottom">
-              <Input className={`${styles.defaultShadowBox} ${styles.searchText}`} placeholder="搜索股票名称或代码.." onKeyDown={this.handleSearch} onChange={this.handleChange} value={this.state.stock} />
+              <Input id="search" className={`${styles.defaultShadowBox} ${styles.searchText}`} placeholder="搜索股票名称或代码.." onKeyDown={this.handleSearch} onChange={this.handleChange} value={this.state.stock} />
             </Popover>
           </div>
         : ""}
