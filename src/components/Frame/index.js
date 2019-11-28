@@ -12,6 +12,9 @@ class Frame extends React.Component {
     if (!window.sessionStorage.token && this.props.title !== "个人中心" && this.props.title) this.props.history.push("/user");
     this.state = {stock: ""};
   }
+  goHome = () => {
+    this.props.history.push("/");
+  }
   handleSearch = (e) => {
     if (e.keyCode === 13) {
       const stock = e.target.value.trim();
@@ -71,7 +74,7 @@ class Frame extends React.Component {
     return (
       <div className={styles.whole}>
         <div className={styles.header}>
-          <div className={styles.title}>
+          <div className={`${styles.title} ${styles.cursorPointer}`} onClick={this.goHome}>
             FR Shield
           </div>
           <div className={styles.navigator}>
