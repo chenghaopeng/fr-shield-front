@@ -3,7 +3,7 @@ import styles from "./index.module.less";
 import Frame from "../../components/Frame";
 import { withRouter } from "react-router"
 import FlatButton from "../../components/FlatButton/FlatButton";
-import { Row, Col, Spin, List, Descriptions } from "antd";
+import { Row, Col, Spin, List, Descriptions, Empty } from "antd";
 import { information, emotion } from "../../services/apiHTTP";
 import Profit from "./Information/Profit";
 import Operation from "./Information/Operation";
@@ -15,11 +15,11 @@ import { FindStock } from "../../utils/stocks";
 class Analysis extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {stock: FindStock(this.props.match.params.stock), stockname: this.props.match.params.stock, stockcode: "", view: 1, status: [-1, -1, -1], datas: [[[], [], [], [], []], {}, {}]};
+    this.state = {stock: FindStock(this.props.match.params.stock), stockname: this.props.match.params.stock, view: 1, status: [-1, -1, -1], datas: [[[], [], [], [], []], {}, {}]};
     this.refresh(this.props.match.params.stock);
   }
   refresh = (stockname) => {
-    this.setState({stock: FindStock(stockname), stockname: stockname, stockcode: "", view: 1, status: [-1, -1, -1], datas: [[[], [], [], [], []], {}, {}]});
+    this.setState({stock: FindStock(stockname), stockname: stockname, view: 1, status: [-1, -1, -1], datas: [[[], [], [], [], []], {}, {}]});
   }
   toView = view => {
     this.setState({...this.state, view: view});
@@ -59,7 +59,6 @@ class Analysis extends React.Component {
     return <Spin />
   }
   renderInformation = () => {
-    if (!this.state.stock) return <p>股票名称或代码错误！</p>
     return (
       <Descriptions column={2} bordered>
         <Descriptions.Item label="股票代码">{this.state.stock[0]}</Descriptions.Item>
@@ -150,7 +149,15 @@ class Analysis extends React.Component {
     return component;
   }
   render() {
-    const component = (
+    let component;
+    if (!this.state.stock) component = (
+      <div className={styles.whole}>
+        <div className={`${styles.defaultBox} ${styles.empty}`}>
+          <Empty description={"股票名称或代码“" + this.state.stockname + "”错误！"} />
+        </div>
+      </div>
+    );
+    else component = (
       <div className={styles.whole}>
         <div className={styles.tabs}>
           <FlatButton text={this.state.stock[0] + "：" + this.state.stock[1]} style={{flex: "1", marginLeft: "0"}} />
