@@ -62,3 +62,10 @@ export const getMark = () => {
     body: {}
   });
 }
+
+export const emotion = (payload) => {
+  return request("/emotion", {
+    method: "POST",
+    body: payload
+  });
+}

@@ -4,7 +4,7 @@ import Frame from "../../components/Frame";
 import { withRouter } from "react-router"
 import FlatButton from "../../components/FlatButton/FlatButton";
 import { Row, Col, Spin } from "antd";
-import { information } from "../../services/apiHTTP";
+import { information, emotion } from "../../services/apiHTTP";
 import Profit from "./Information/Profit";
 import Operation from "./Information/Operation";
 import Solvency from "./Information/Solvency";
@@ -40,6 +40,22 @@ class Analysis extends React.Component {
     }
     return <Spin size="large"/>
   }
+  getEmotionAnly = () => {
+    if (this.state.status[1] === -1) {
+      let ns = this.state;
+      ns.status[1] = 0;
+      this.setState(ns);
+      emotion({stock: this.state.stockname}).then(res => {
+        if (res.code === 0) {
+          let ns = this.state;
+          ns.datas[1] = res.data;
+          ns.status[1] = 1;
+          this.setState(ns);
+        }
+      });
+    }
+    return <Spin />
+  }
   renderDataAnly = (id) => {
     if (this.state.status[0] !== 5) return <this.getDataAnly />;
     let component;
@@ -47,6 +63,13 @@ class Analysis extends React.Component {
     if (id === 2) return component = <Operation csv={this.state.datas[0]} />;
     if (id === 3) return component = <Solvency csv={this.state.datas[0]} />;
     if (id === 4) return component = <Development csv={this.state.datas[0]} />;
+    return component;
+  }
+  renderEmotionAnly = (id) => {
+    if (this.state.status[1] !== 1) return <this.getEmotionAnly />;
+    let component;
+    if (id === 1) component = <div className={styles.redu}>{this.state.datas[1].redu}</div>;
+    if (id === 2) component = <div></div>;
     return component;
   }
   render() {
@@ -90,8 +113,13 @@ class Analysis extends React.Component {
         : ""}
         { this.state.view === 3 ?
           <Row className={styles.defaultRow}>
-            <Col span={24} className={styles.defaultBox}>
-              这是舆情分析
+            <Col span={5} className={styles.defaultBox}>
+              <div className={styles.defaultTitle}>舆论热度</div>
+              {this.renderEmotionAnly(1)}
+            </Col>
+            <Col span={10} offset={1} className={styles.defaultBox}>
+              <div className={styles.defaultTitle}>情感分布</div>
+              {this.renderEmotionAnly(2)}
             </Col>
           </Row>
         : ""}
