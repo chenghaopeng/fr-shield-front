@@ -137,13 +137,13 @@ class User extends React.Component {
                 足迹
               </div>
               <div className={styles.footprints}>
-                {this.state.fp ? this.state.fps.map((item, index) => {
+                {this.state.fp ? (this.state.fps.length > 0 ? this.state.fps.map((item, index) => {
                   return (
                     <div className={styles.footprint} key={index}>
                       {item}
                     </div>
                   );
-                }) : <Spin size="large" />}
+                }) : <div className={styles.footprint}>暂无足迹</div>) : <Spin size="large" />}
               </div>
             </Col>
             <Col span={11} offset={1} className={styles.defaultBox}>
