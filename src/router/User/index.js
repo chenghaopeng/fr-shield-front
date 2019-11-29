@@ -11,7 +11,10 @@ class User extends React.Component {
     this.state = {loged: window.sessionStorage.token ? 1 : 0, login: {}, register: {}, fps: [], fp: false, password: {}};
   }
   componentWillMount() {
-    footprint().then(res => {
+    this.getFootprint();
+  }
+  getFootprint = () => {
+    if (this.state.loged === 1) footprint().then(res => {
       if (res.code === 0) {
         this.setState({...this.state, fp: true, fps: res.data.footprints});
       }
@@ -46,6 +49,7 @@ class User extends React.Component {
         window.sessionStorage.token = res.data.token;
         window.sessionStorage.username = res.data.username;
         this.setState({...this.state, loged: 1});
+        this.getFootprint();
       }
       else {
         message.error("用户名或密码错误！");
