@@ -3,8 +3,8 @@ import styles from "./index.module.less";
 import Frame from "../../components/Frame";
 import { withRouter } from "react-router"
 import FlatButton from "../../components/FlatButton/FlatButton";
-import { Row, Col, Spin, List, Descriptions, Empty } from "antd";
-import { information, emotion } from "../../services/apiHTTP";
+import { Row, Col, Spin, List, Descriptions, Empty, Progress, Badge, Table, Statistic, Icon } from "antd";
+import { information, emotion, analysis } from "../../services/apiHTTP";
 import Profit from "./Information/Profit";
 import Operation from "./Information/Operation";
 import Solvency from "./Information/Solvency";
@@ -53,6 +53,22 @@ class Analysis extends React.Component {
           let ns = this.state;
           ns.datas[1] = res.data;
           ns.status[1] = 1;
+          this.setState(ns);
+        }
+      });
+    }
+    return <Spin />
+  }
+  getFinanceAnly = () => {
+    if (this.state.status[2] === -1) {
+      let ns = this.state;
+      ns.status[2] = 0;
+      this.setState(ns);
+      analysis({stock: this.state.stockname}).then(res => {
+        if (res.code === 0) {
+          let ns = this.state;
+          ns.datas[2] = res.data;
+          ns.status[2] = 1;
           this.setState(ns);
         }
       });
@@ -175,6 +191,56 @@ class Analysis extends React.Component {
     }
     return component;
   }
+  renderFinanceAnly = (id) => {
+    if (this.state.status[2] !== 1) return <this.getFinanceAnly />;
+    let component;
+    if (id === 1) component = (
+      <div className={styles.score}>
+        <Progress type="dashboard" width={150} strokeColor={"rgb(102, 0, 255)"} percent={this.state.datas[2].fenshu} format={percent => parseFloat(percent.toFixed(1))} />
+      </div>
+    );
+    if (id === 2) {
+      const problems = [];
+      this.state.datas[2].problem.map(item => item !== 0 && item[0] !== 0 ? problems.push([item[0], item[1]]) : "");
+      problems.sort((a, b) => b[0] - a[0]);
+      component = <List size="large" bordered dataSource={problems} renderItem={item => <List.Item><Badge color={"rgba(255, 0, 0, " + (item[0] / 10) +" )"} />{item[1]}</List.Item>} />;
+    }
+    if (id === 3) {
+      const titles = ["毛利率", "应付账款", "净利润", "流动负债", "总负责", "营业收入", "运营成本", "累计折旧", "固定资产", "商誉", "基本每股收益", "每股净资产", "每股经营活动产生的现金流量净额", "主营业务收入", "主营业务利润", "营业利润", "投资收益", "营业外收支净额", "利润总额", "净利润", "净利润(扣除非经常性损益后)", "经营活动产生的现金流量净额", "现金及现金等价物净增加额", "总资产", "流动资产", "总负债", "流动负债", "股东权益不含少数股东权益", "净资产收益率加权", "总资产利润率", "主营业务利润率", "总资产净利润率", "成本费用利润率", "营业利润率", "主营业务成本率", "销售净利率", "净资产收益率", "股本报酬率", "净资产报酬率", "资产报酬率", "销售毛利率", "三项费用比重", "非主营比重", "主营利润比重", "流动比率", "速动比率", "现金比率", "利息支付倍数", "资产负债率", "长期债务与营运资金比率", "资本化比率", "固定资产净值率", "资本固定化比率", "产权比率", "清算价值比率", "固定资产比重", "主营业务收入增长率", "净利润增长率", "净资产增长率", "总资产增长率"];
+      const columns = [
+        {
+          title: "因子名称",
+          dataIndex: "name",
+          key: "name"
+        },
+        {
+          title: "预测值",
+          dataIndex: "predict",
+          key: "predict"
+        },
+        {
+          title: "真实值",
+          dataIndex: "actual",
+          key: "actual"
+        },
+        {
+          title: "偏差",
+          dataIndex: "baias",
+          key: "baias",
+          render: baias => (
+            baias > 0 ? <Statistic value={baias} precision={2} valueStyle={{ color: '#3f8600' }} prefix={<Icon type="arrow-up" />} />
+            : (baias < 0 ? <Statistic value={-baias} precision={2} valueStyle={{ color: '#cf1322' }} prefix={<Icon type="arrow-down" />} />
+            : <Statistic value={0} precision={2} valueStyle={{ color: 'blue' }} prefix={<Icon type="minus" />} />)
+          )
+        }
+      ];
+      let factors = [];
+      const data = this.state.datas[2];
+      titles.map((item, index) => data.yuce[index] !== -1 ? factors.push({key: index, name: item, predict: data.yuce[index].toFixed(2), actual: data.zhenshi[index].toFixed(2), baias: data.piancha[index].toFixed(2)}) : "");
+      component = <Table columns={columns} dataSource={factors} pagination={false} />;
+    }
+    return component;
+  }
   render() {
     let component;
     if (!this.state.stock) component = (
@@ -258,7 +324,16 @@ class Analysis extends React.Component {
         { this.state.view === 4 ?
           <Row className={styles.defaultRow}>
             <Col span={24} className={styles.defaultBox}>
-              这是财务分析
+              <div className={styles.defaultTitle}>评分</div>
+              {this.renderFinanceAnly(1)}
+            </Col>
+            <Col span={24} className={styles.defaultBox}>
+              <div className={styles.defaultTitle}>潜在问题</div>
+              {this.renderFinanceAnly(2)}
+            </Col>
+            <Col span={24} className={styles.defaultBox}>
+              <div className={styles.defaultTitle}>因子</div>
+              {this.renderFinanceAnly(3)}
             </Col>
           </Row>
         : ""}
