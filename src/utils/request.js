@@ -2,6 +2,8 @@
 
 // import {getToken, judgeLogin} from "./authorization";
 
+const server = "http://192.168.10.198:8080";
+
 const codeMessage = {
   200: "服务器成功返回请求的数据。",
   201: "新建或修改数据成功。",
@@ -39,7 +41,7 @@ function checkStatus(response) {
  */
 export default async function request(url, options) {
   const defaultOptions = {
-    credentials: "include",  //允许token认证
+    mode: 'cors',
   };
   const newOptions = { ...defaultOptions, ...options };
   if (
@@ -68,7 +70,7 @@ export default async function request(url, options) {
     ...newOptions.headers,
   };
 
-  const response = await fetch(url, newOptions);
+  const response = await fetch(server + url, newOptions);
   try {
     checkStatus(response);
   } catch (e) {
