@@ -12,6 +12,7 @@ import Development from "./Information/Development";
 import { Chart, Coord, Tooltip, Legend, Geom } from "bizcharts";
 import { FindStock } from "../../utils/stocks";
 import { isNumber } from "util";
+import WordCloud from 'react-d3-cloud';
 
 class Analysis extends React.Component {
   constructor(props) {
@@ -189,6 +190,11 @@ class Analysis extends React.Component {
         </Chart>
       );
     }
+    if (id === 8) {
+      let wc = [];
+      this.state.datas[1].jkpj.map(item => wc.push({text: item, value: Math.floor(Math.random() * 100)}));
+      component = <WordCloud data={wc} fontSizeMapper={word => Math.log2(word.value) * 5} rotate={word => Math.random() * 360} />;
+    }
     return component;
   }
   renderFinanceAnly = (id) => {
@@ -318,6 +324,9 @@ class Analysis extends React.Component {
             <Col span={24} className={styles.defaultBox}>
               <div className={styles.defaultTitle}>近况评价</div>
               {this.renderEmotionAnly(6)}
+            </Col>
+            <Col span={24} className={styles.defaultBox}>
+              {this.renderEmotionAnly(8)}
             </Col>
           </Row>
         : ""}
