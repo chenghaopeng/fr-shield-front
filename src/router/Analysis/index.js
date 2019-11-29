@@ -11,6 +11,7 @@ import Solvency from "./Information/Solvency";
 import Development from "./Information/Development";
 import { Chart, Coord, Tooltip, Legend, Geom } from "bizcharts";
 import { FindStock } from "../../utils/stocks";
+import { isNumber } from "util";
 
 class Analysis extends React.Component {
   constructor(props) {
@@ -129,10 +130,10 @@ class Analysis extends React.Component {
       ];
       this.state.datas[1].qg.map(item => emotion_data[item].number++);
       component = (
-        <Chart height={300} data={emotion_data} padding="auto" forceFit>
+        <Chart height={250} data={emotion_data} padding="auto" forceFit>
           <Coord type="polar" />
           <Tooltip />
-          <Legend position="right" />
+          <Legend position="bottom" />
           <Geom type="interval" color="emotion" position="emotion*number" />
         </Chart>
       );
@@ -146,6 +147,32 @@ class Analysis extends React.Component {
     if (id === 4) component = <List size={ListSize} bordered dataSource={this.state.datas[1].cwpj} renderItem={item => <List.Item>{item}</List.Item>} />;
     if (id === 5) component = <List size={ListSize} bordered dataSource={this.state.datas[1].sjpj} renderItem={item => <List.Item>{item}</List.Item>} />;
     if (id === 6) component = <List size={ListSize} bordered dataSource={this.state.datas[1].jkpj} renderItem={item => <List.Item>{item}</List.Item>} />;
+    if (id === 7) {
+      const rddata = this.state.datas[1];
+      let ylrd_data = [];
+      // eslint-disable-next-line
+      for (let time in rddata.allcount) {
+        let cur = {};
+        cur["日期"] = time.substr(0, time.length - 2) + "月" + time.substr(time.length - 2, 2) + "日";
+        cur["所有帖子"] = rddata.allcount[time];
+        cur["财务评价"] = isNumber(rddata.count1[time]) ? rddata.count1[time] : 0;
+        cur["财务新闻"] = isNumber(rddata.count2[time]) ? rddata.count2[time] : 0;
+        cur["事件评价"] = isNumber(rddata.count3[time]) ? rddata.count3[time] : 0;
+        cur["事件新闻"] = isNumber(rddata.count4[time]) ? rddata.count4[time] : 0;
+        ylrd_data.push(cur);
+      }
+      return (
+        <Chart height={362} data={ylrd_data} padding="auto" forceFit>
+          <Tooltip />
+          <Legend />
+          <Geom type="line" color="#5DB1FF" position="日期*所有帖子" />
+          <Geom type="line" color="#2FC25B" position="日期*财务评价" />
+          <Geom type="line" color="#FBDB5A" position="日期*财务新闻" />
+          <Geom type="line" color="#8543E0" position="日期*事件评价" />
+          <Geom type="line" color="#223273" position="日期*事件新闻" />
+        </Chart>
+      );
+    }
     return component;
   }
   render() {
@@ -196,13 +223,19 @@ class Analysis extends React.Component {
         : ""}
         { this.state.view === 3 ?
           <Row className={styles.defaultRow}>
-            <Col span={15} className={styles.defaultBox}>
-              <div className={styles.defaultTitle}>情感分布</div>
-              {this.renderEmotionAnly(2)}
+            <Col span={8}>
+              <div className={styles.defaultBox}>
+                <div className={styles.defaultTitle}>舆论热度</div>
+                {this.renderEmotionAnly(1)}
+              </div>
+              <div className={styles.defaultBox}>
+                <div className={styles.defaultTitle}>情感分布</div>
+                {this.renderEmotionAnly(2)}
+              </div>
             </Col>
-            <Col span={8} offset={1} className={styles.defaultBox}>
-              <div className={styles.defaultTitle}>舆论热度</div>
-              {this.renderEmotionAnly(1)}
+            <Col span={15} offset={1} className={styles.defaultBox}>
+              <div className={styles.defaultTitle}>舆论热度时间分布</div>
+              {this.renderEmotionAnly(7)}
             </Col>
             <Col span={24} className={styles.defaultBox}>
               <div className={styles.defaultTitle}>分析意见</div>
