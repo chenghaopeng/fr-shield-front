@@ -2,7 +2,8 @@
 
 // import {getToken, judgeLogin} from "./authorization";
 
-const server = "http://192.168.10.198:8080";
+// const server = "http://192.168.10.198:8080";
+const server = "http://ali.chper.cn:33333"
 
 const codeMessage = {
   200: "服务器成功返回请求的数据。",
